@@ -1,21 +1,17 @@
+from objects.Text import Text
 import pygame
+from pygame.color import THECOLORS
 from .Scene import Scene
 
 
 class LandingScene(Scene):
-    def __init__(self):
-        super(LandingScene, self).__init__('landing')
-        self.font = pygame.font.SysFont('Arial', 56)
-        self.sfont = pygame.font.SysFont('Arial', 32)
+    def __init__(self, screen):
+        super().__init__('landing', screen, background_color=THECOLORS["blue"])
 
-    def render(self, screen):
-        screen.fill((50, 50, 150))
-        text1 = self.font.render('Monopoly', True, (255, 255, 255))
-        text2 = self.font.render(
-            '> press space to start <', True, (255, 255, 255))
-        [width, height] = screen.get_size()
-        screen.blit(text1, text1.get_rect(center=(width / 2, height / 3)))
-        screen.blit(text2, text2.get_rect(center=(width / 2, height * 2 / 3)))
+    def init_scene(self):
+        [width, height] = self.screen.get_size()
+        self.add_object(Text('Monopoly', 'Title', width / 2, height / 3))
+        self.add_object(Text('> press space to start <', 'Normal', width / 2, height * 2 / 3))
 
     def update(self):
         pass

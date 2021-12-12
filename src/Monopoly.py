@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 from scenes.SceneManager import SceneManager
 from scenes.LandingScene import LandingScene
+from scenes.GameScene import GameScene
 
 
 class Monopoly:
@@ -12,13 +13,14 @@ class Monopoly:
         self.screen.fill(Color('white'))
         self.timer = pygame.time.Clock()
         self.running = True
-        self.init_scene()
+        self.init_scenes()
 
-    def init_scene(self):
+    def init_scenes(self):
         self.scene_manager = SceneManager()
         
         # add scene here
-        self.scene_manager.add_scene(LandingScene())
+        self.scene_manager.add_scene(LandingScene(self.screen))
+        self.scene_manager.add_scene(GameScene(self.screen))
         
 
     def run(self):
@@ -33,7 +35,3 @@ class Monopoly:
             pygame.display.flip()
 
         pygame.quit()
-
-
-if __name__ == '__main__':
-    Monopoly().run()
