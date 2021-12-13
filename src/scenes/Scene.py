@@ -1,9 +1,8 @@
 import pygame
-from pygame.color import THECOLORS
 
 
 class Scene(object):
-    def __init__(self, scene_name, screen, background_color=THECOLORS["white"]):
+    def __init__(self, scene_name, screen, background_color=pygame.Color('white')):
         self.name = scene_name
         self.screen = screen
         self.objects = []
@@ -22,7 +21,7 @@ class Scene(object):
             obj.render(screen)
 
     def update(self):
-        raise NotImplementedError
+        pass
 
     def handle_events(self, events):
         pass
