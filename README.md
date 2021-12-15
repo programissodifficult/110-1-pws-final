@@ -11,7 +11,9 @@ $ python src/main.py
 ## 組員
 
 * 數學四 萬俊彥
+<<<<<<< HEAD
 * 工管四 劉信堂
 
-  git config --global user.email "tom0111616@gmail.com"
-  git config --global user.name "tomxtl"
+=======
+hello~~
+>>>>>>> d17fa95fe574e2f9adf41ee90804b273569ba445
