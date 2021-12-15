@@ -7,3 +7,7 @@ In the root directory, run:
 ```bash
 $ python src/main.py
 ```
+
+## 組員
+
+* 數學四 萬俊彥
