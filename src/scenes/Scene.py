@@ -24,4 +24,5 @@ class Scene(object):
         pass
 
     def handle_events(self, events):
-        pass
+        for obj in self.objects:
+            obj.handle_events(events)

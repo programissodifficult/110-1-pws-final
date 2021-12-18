@@ -4,3 +4,6 @@ class BasicObject:
 
     def render(self):
         raise NotImplementedError
+
+    def handle_events(self, events):
+        pass

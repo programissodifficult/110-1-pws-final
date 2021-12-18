@@ -1,5 +1,6 @@
 import pygame
 from .BasicObject import BasicObject
+from ..CONST import DefaultTextColor
 
 pygame.font.init()
 
@@ -10,7 +11,7 @@ fonts = {
 
 
 class Text(BasicObject):
-    def __init__(self, content, font_type, center_x, center_y, color=pygame.Color('white'), background_color=None):
+    def __init__(self, content, font_type, center_x, center_y, color=DefaultTextColor, background_color=None):
         self.color = color
         self.geometry = fonts[font_type].render(
             content, True, color, background_color)
