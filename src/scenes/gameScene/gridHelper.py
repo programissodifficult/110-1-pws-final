@@ -1,4 +1,4 @@
-from .CONST import *
+from ..CONST import *
 
 player_paddings = [
     (PlayerBorderPadding, PlayerBorderPadding),
@@ -7,7 +7,7 @@ player_paddings = [
     (BoxSize - PlayerBorderPadding, BoxSize - PlayerBorderPadding),
 ]
 
-def grid(i, player_id = None):
+def grid_pos(i, player_id = None):
     line = i // 9
     offset = i % 9
     if line == 0:

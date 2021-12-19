@@ -1,11 +1,10 @@
-import pygame
-
-from .objects.BasicObject import BasicObject
-from .objects.Circle import Circle
-
 from game.game import game
-from .CONST import *
-from .grid import grid
+
+from ..objects.BasicObject import BasicObject
+from ..objects.Circle import Circle
+from ..CONST import *
+
+from .gridHelper import grid_pos
 
 
 class Player(BasicObject):
@@ -18,11 +17,8 @@ class Player(BasicObject):
         return game.players[self.player_id]
 
     def get_center(self):
-        return grid(self.player.position, self.player.id)
+        return grid_pos(self.player.position, self.player.id)
 
     def render(self, screen):
         self.token.center = self.get_center()
         self.token.render(screen)
-
-    def handle_events(self, events):
-        pass

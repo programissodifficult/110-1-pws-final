@@ -1,7 +1,7 @@
 import pygame
 from scenes.SceneManager import SceneManager
 from scenes.LandingScene import LandingScene
-from scenes.GameScene import GameScene
+from scenes.gameScene import GameScene
 
 
 class Monopoly:

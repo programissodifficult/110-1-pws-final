@@ -1,10 +1,7 @@
 import pygame
-from .lib.EffectGrid import EffectGrid
-from .lib.EventGrid import EventGrid
-from .lib.FoodStand import FoodStand
 
+from .lib.Grid import *
 from .lib.Player import Player
-from .lib.MainKitchen import MainKitchen
 
 class Game:
     def __init__(self):
