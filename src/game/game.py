@@ -5,6 +5,7 @@ from .lib.Player import Player
 
 class Game:
     def __init__(self):
+        self.turn = 0
         self.grids = [
             MainKitchen(0, 0),
             FoodStand(1, "珍珠奶茶", 2),

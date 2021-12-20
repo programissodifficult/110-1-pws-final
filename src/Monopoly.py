@@ -1,40 +1,30 @@
 import pygame
-from scenes.SceneManager import SceneManager
-from scenes.LandingScene import LandingScene
-from scenes.gameScene import GameScene
+from view.ViewManager import ViewManager
+from view.CONST import ScreenSize
+from view.scenes.LandingScene import LandingScene
+from view.scenes.gameScene import GameScene
+from view.ComponentRegistry import ComponentRegistry
 
 
 class Monopoly:
     def __init__(self):
-        pygame.init()
-        flags = pygame.RESIZABLE
-        self.screen = pygame.display.set_mode((1100, 800), flags)
-        self.screen.fill(pygame.Color('white'))
         self.timer = pygame.time.Clock()
         self.running = True
+        self.view_manager = ViewManager(ComponentRegistry)
         self.init_scenes()
 
     def init_scenes(self):
-        self.scene_manager = SceneManager()
+        self.view_manager.add_scene(LandingScene())
+        self.view_manager.add_scene(GameScene())
 
-        # add scene here
-        self.scene_manager.add_scene(LandingScene(self.screen))
-        self.scene_manager.add_scene(GameScene(self.screen))
-
-        self.scene_manager.to_scene('landing')
+        self.view_manager.to_scene('landing')
 
     def run(self):
+        pygame.init()
         while self.running:
-            self.timer.tick(60)
+            self.timer.tick(20)
             if pygame.event.get(pygame.QUIT):
-
                 self.running = False
                 return
-            events = pygame.event.get()
-            if len(events):
-                self.scene_manager.scene.handle_events(events)
-            self.scene_manager.scene.update()
-            self.scene_manager.scene.render(self.screen)
-            pygame.display.flip()
-
+            self.view_manager.tick()
         pygame.quit()
