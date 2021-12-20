@@ -8,6 +8,7 @@ from view.ComponentRegistry import ComponentRegistry
 
 class Monopoly:
     def __init__(self):
+        pygame.init()
         self.timer = pygame.time.Clock()
         self.running = True
         self.view_manager = ViewManager(ComponentRegistry)
@@ -20,7 +21,6 @@ class Monopoly:
         self.view_manager.to_scene('landing')
 
     def run(self):
-        pygame.init()
         while self.running:
             self.timer.tick(20)
             if pygame.event.get(pygame.QUIT):

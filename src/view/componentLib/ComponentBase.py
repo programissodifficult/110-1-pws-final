@@ -1,7 +1,8 @@
 from pygame import constants
 from .ComponentList import ComponentList
 
-Verbose = True
+# Verbose = True
+Verbose = False
 
 class ComponentBase:
     def __init__(self):

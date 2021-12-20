@@ -11,7 +11,6 @@ class ViewManager():
 
         flags = pygame.RESIZABLE
         self.screen = pygame.display.set_mode(ScreenSize, flags)
-        self.screen.fill(pygame.Color('white'))
 
     def add_scene(self, scene):
         self.scenes[scene.name] = scene
@@ -23,6 +22,7 @@ class ViewManager():
         self.scene = scene
 
     def rerender(self):
+        self.screen.fill(pygame.Color('white'))
         self.scene.update()
         self.scene.render()
         pygame.display.flip()
