@@ -5,6 +5,7 @@ from .lib.Player import Player
 
 class Game:
     def __init__(self):
+        self.turn = 0
         self.grids = [
             MainKitchen(0, 0),
             FoodStand(1, "珍珠奶茶", 2),
@@ -51,5 +52,8 @@ class Game:
             Player(2, pygame.Color('green')),
             Player(3, pygame.Color('yellow'))
         ][:player_amount]
+
+    def next_turn(self):
+        game.turn = (game.turn + 1) % len(self.players)
 
 game = Game()
