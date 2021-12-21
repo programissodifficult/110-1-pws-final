@@ -2,7 +2,7 @@ from .GridId import GridId
 from .StandPrice import stand_prices
 
 
-class Grid:
+class Grid():
     def __init__(self, id, type):
         self.id = GridId(id)
         self.type = type

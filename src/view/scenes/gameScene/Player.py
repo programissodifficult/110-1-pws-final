@@ -8,11 +8,9 @@ from .gridHelper import grid_coord
 
 
 class Player(ComponentBase):
-    def __init__(self, id):
-        super().__init__()
+    def init(self, id):
         self.player_id = id
-        self.token = Circle(PlayerTokenRadius, self.get_center(), self.player.color)
-        self.children.create_component(self.token)
+        self.token = self.children.create_component('Circle', PlayerTokenRadius, self.get_center(), self.player.color)
 
     @property
     def player(self):
@@ -26,10 +24,9 @@ class Player(ComponentBase):
 
     def step_to(self, pos):
         timer = pygame.time.Clock()
-        print(f'self.player.position {self.player.position}')
         while pos != self.player.position:
-            print(f'self.player.position {self.player.position}')
             self.player.step(1)
+            self.manager.rerender()
             timer.tick(3)
 
     def update(self):

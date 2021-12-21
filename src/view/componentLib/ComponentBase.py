@@ -4,6 +4,7 @@ from .ComponentList import ComponentList
 # Verbose = True
 Verbose = False
 
+
 class ComponentBase:
     def __init__(self):
         self.children = ComponentList(self)
@@ -26,7 +27,8 @@ class ComponentBase:
         self.debug(type(self).__name__, 'rendered')
 
     def handle_events(self, events):
-        pass
+        for child in self.children:
+            child.handle_events(events)
 
     def debug(self, *args, **kwargs):
         if Verbose:

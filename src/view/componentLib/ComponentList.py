@@ -15,14 +15,14 @@ class ComponentList():
         self._add_component(comp)
         return comp
 
-    def getComponents(self, name):
+    def get_components(self, name):
         return self._by_name.get(name)
 
     
     def _add_component(self, comp):
         self._all.append(comp)
         name = type(comp).__name__
-        by_name = self.getComponents(name)
+        by_name = self.get_components(name)
         if by_name == None:
             by_name = []
             self._by_name[name] = by_name

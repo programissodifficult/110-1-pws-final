@@ -53,4 +53,7 @@ class Game:
             Player(3, pygame.Color('yellow'))
         ][:player_amount]
 
+    def next_turn(self):
+        game.turn = (game.turn + 1) % len(self.players)
+
 game = Game()

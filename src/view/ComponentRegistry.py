@@ -3,8 +3,8 @@ from .scenes.basicComponents.Button import Button
 from .scenes.basicComponents.Circle import Circle
 from .scenes.basicComponents.Rectangle import Rectangle
 
-from .scenes.gameScene import Grid
-from .scenes.gameScene import Player
+from .scenes.gameScene.Grid import FoodStandGrid, EventGrid, EffectGrid, MainKitchenGrid
+from .scenes.gameScene.Player import Player
 
 
 ComponentRegistry = {
@@ -12,6 +12,9 @@ ComponentRegistry = {
     "Button": Button,
     "Circle": Circle,
     "Rectangle": Rectangle,
-    "Grid": Grid,
-    "Player": Player
+    "Player": Player,
+    "FoodStandGrid": FoodStandGrid,
+    "EventGrid": EventGrid,
+    "EffectGrid": EffectGrid,
+    "MainKitchenGrid": MainKitchenGrid,
 }

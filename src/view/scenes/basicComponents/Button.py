@@ -15,7 +15,7 @@ class Button(ComponentBase):
         text_rect.height += 15
         text_rect.width += 30
         text_rect.center = center
-        self.children.create_component('Rectangle', text_rect.width, text_rect.height, text_rect.x, text_rect.y, border_color)
+        self.rect = self.children.create_component('Rectangle', text_rect.width, text_rect.height, text_rect.x, text_rect.y, border_color)
         self.cb = cb
         self.cbargs = cbargs
 

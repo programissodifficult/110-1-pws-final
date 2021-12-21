@@ -3,7 +3,7 @@ from ...componentLib.ComponentBase import ComponentBase
 
 
 class Circle(ComponentBase):
-    def __init__(self, radius, center, color):
+    def init(self, radius, center, color):
         self.r = radius
         self.center = center
         self.color = color
