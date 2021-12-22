@@ -4,6 +4,7 @@ from ...CONST import *
 from ...componentLib.ComponentBase import ComponentBase
 from ..basicComponents.Rectangle import Rectangle
 from ..basicComponents.Text import Text
+from game.CONST import *
 
 from .gridHelper import grid_coord
 
@@ -51,7 +52,7 @@ class MainKitchenGrid(Grid):
         super().init(grid)
         (x, y) = self.grid_padding
         self.children.create_component('Text', '中央廚房', 'Small', (x + BoxSize / 2, y + BoxSize * 1 / 2))
-        self.children.create_component('Text', self.player.name, 'Small', (x + BoxSize / 2, y + BoxSize * 2 / 3))
+        self.children.create_component('Text', PlayerNames[self.grid.player_id], 'Small', (x + BoxSize / 2, y + BoxSize * 2 / 3))
 
     @property
     def player(self):
