@@ -24,3 +24,4 @@ class RollButton(ComponentBase):
         self.manager.scene.players[game.turn].step(step)
         game.current_player.get_grid().trigger()
         game.next_turn()
+        self.button.content = "Go"

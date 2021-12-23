@@ -86,7 +86,6 @@ class Game:
             raise Exception(
                 f'Player {player.name} cannot afford stand {stand.name}')
         stand.owner_id = player.id
-        player.own_stands.append(stand.id)
         player.money -= stand.prices.buy
 
     def next_turn(self):
