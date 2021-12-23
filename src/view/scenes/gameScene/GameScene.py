@@ -30,6 +30,9 @@ class GameScene(Scene):
             player_comp = self.children.create_component('Player', player.id)
             self.players.append(player_comp)
 
+        for player in game.players:
+            self.children.create_component('ScoreBoard', player.id)
+
     def handle_events(self, events):
         for e in events:
             if e.type == pygame.MOUSEBUTTONDOWN:

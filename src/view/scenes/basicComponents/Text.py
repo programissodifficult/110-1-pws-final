@@ -11,7 +11,6 @@ fonts = {
     'XSmall': pygame.font.SysFont('microsoftjhenghei', 8),
 }
 
-
 class Text(ComponentBase):
     def init(self, content, font_type, center, color=DefaultTextColor, background_color=None):
         self.color = color

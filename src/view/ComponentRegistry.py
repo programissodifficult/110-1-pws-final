@@ -1,3 +1,4 @@
+from .scenes.gameScene.ScoreBoard import ScoreBoard
 from .scenes.basicComponents.Text import Text
 from .scenes.basicComponents.Button import Button
 from .scenes.basicComponents.Circle import Circle
@@ -17,4 +18,5 @@ ComponentRegistry = {
     "EventGrid": EventGrid,
     "EffectGrid": EffectGrid,
     "MainKitchenGrid": MainKitchenGrid,
+    "ScoreBoard": ScoreBoard,
 }
