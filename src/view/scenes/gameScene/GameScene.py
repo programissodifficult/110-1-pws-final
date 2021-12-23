@@ -38,4 +38,5 @@ class GameScene(Scene):
             if e.type == pygame.MOUSEBUTTONDOWN:
                 step = random.randint(1, 6)
                 self.players[game.turn].step(step)
+                game.current_player.get_grid().trigger()
                 game.next_turn()

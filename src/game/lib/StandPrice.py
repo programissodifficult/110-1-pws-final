@@ -1,8 +1,9 @@
 class StandPrice:
-    def __init__(self, buy_price, build_price, fees):
+    def __init__(self, buy_price, build_price, profit):
         self.buy = buy_price
         self.build = build_price
-        self.fees = fees
+        self.profit = profit
+
 
 stand_prices = [
     StandPrice(500, 600, [600, 900, 1200, 1800]),

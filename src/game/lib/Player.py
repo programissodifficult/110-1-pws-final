@@ -1,6 +1,7 @@
 from game.CONST import *
 from .GridId import GridId
 
+
 class Player:
     def __init__(self, id, color):
         self.id = id
@@ -12,3 +13,6 @@ class Player:
 
     def step(self, steps):
         self.position = self.position + steps
+
+    def get_grid(self):
+        return self.game.grids[self.position]

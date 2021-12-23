@@ -1,6 +1,6 @@
+from util.Dialog import yesno, confirm
 from .GridId import GridId
 from .StandPrice import stand_prices
-
 
 class Grid():
     def __init__(self, id, type):
@@ -15,16 +15,34 @@ class FoodStand(Grid):
     def __init__(self, id, name, price_level):
         super().__init__(id, 'FoodStand')
         self.name = name
+        self.level = 0
         self.price_level = price_level
-        self.owner = None
+        self.owner_id = None
 
     @property
-    def price(self):
+    def prices(self):
         return stand_prices[self.price_level]
 
+    @property
+    def owner(self):
+        if self.owner_id == None:
+            return None
+        else:
+            return self.game.players[self.owner_id]
+
     def trigger(self):
-        # TODO
-        pass
+        if self.owner != None:
+            # 已有人購買的攤位，觸發獲利事件
+            self.game.profit_stand(self.id)
+            confirm('台灣發大財!', f'{self.game.current_player.name} 光顧 {self.owner.name} 的 {self.name}，帶來 {self.prices.profit[self.level]} 元的收入!')
+        else:
+            # 無人攤位，觸發購買事件
+            if self.game.afford_stand(self.game.current_player.id, self.id):
+                result = yesno("購買攤位", f"是否以 {self.prices.buy} 元購買{self.name}")
+                if result:
+                    self.game.buy_stand(self.game.current_player.id, self.id)
+            else:
+                confirm("購買攤位", f"你的錢好像不太夠，無法購買 {self.prices.buy} 元的{self.name}")
 
 
 class EventGrid(Grid):

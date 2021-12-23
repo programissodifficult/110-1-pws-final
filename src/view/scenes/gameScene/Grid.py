@@ -29,7 +29,7 @@ class FoodStandGrid(Grid):
         super().init(grid)
         (x, y) = self.grid_padding
         self.children.create_component('Text', self.grid.name, 'Small', (x + BoxSize / 2, y + BoxSize / 2))
-        self.children.create_component('Text', str(self.grid.price.buy), 'Small', (x + BoxSize / 2, y + BoxSize * 3 / 4))
+        self.children.create_component('Text', str(self.grid.prices.buy), 'Small', (x + BoxSize / 2, y + BoxSize * 3 / 4))
 
 
 class EffectGrid(Grid):

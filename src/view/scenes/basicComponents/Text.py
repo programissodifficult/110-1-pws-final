@@ -11,11 +11,18 @@ fonts = {
     'XSmall': pygame.font.SysFont('microsoftjhenghei', 8),
 }
 
+
 class Text(ComponentBase):
     def init(self, content, font_type, center, color=DefaultTextColor, background_color=None):
-        self.color = color
-        self.geometry = fonts[font_type].render(content, True, color, background_color)
+        self.content = content
+        self.font_type = font_type
         self.center = center
+        self.color = color
+        self.background_color = background_color
+
+    def make_surface(self):
+        return fonts[self.font_type].render(self.content, True, self.color, self.background_color)
 
     def render(self):
-        self.screen.blit(self.geometry, self.geometry.get_rect(center=self.center))
+        text_surf = self.make_surface()
+        self.screen.blit(text_surf, text_surf.get_rect(center=self.center))

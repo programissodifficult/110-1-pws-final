@@ -3,6 +3,7 @@ import pygame
 from .lib.Grid import *
 from .lib.Player import Player
 
+
 class Game:
     def __init__(self):
         self.turn = 0
@@ -45,6 +46,9 @@ class Game:
             FoodStand(35, "薑母鴨", 2),
         ]
 
+        for grid in self.grids:
+            grid.game = self
+
     def init(self, player_amount):
         self.players = [
             Player(0, pygame.Color('blue')),
@@ -53,7 +57,40 @@ class Game:
             Player(3, pygame.Color('yellow'))
         ][:player_amount]
 
+        for player in self.players:
+            player.game = self
+
+    @property
+    def current_player(self):
+        return self.players[self.turn]
+
+    def profit_stand(self, grid_id):
+        stand = self.grids[grid_id]
+        owner = stand.owner
+        if owner == None:
+            raise Exception(f'Cannot profit stand {stand.name} with no owner')
+        owner.money += stand.prices.profit[stand.level]
+
+    def afford_stand(self, player_id, grid_id):
+        player = self.players[player_id]
+        stand = self.grids[grid_id]
+        if player.money < stand.prices.buy:
+            return False
+        else:
+            return True
+
+    def buy_stand(self, player_id, grid_id):
+        player = self.players[player_id]
+        stand = self.grids[grid_id]
+        if not self.afford_stand(player_id, grid_id):
+            raise Exception(
+                f'Player {player.name} cannot afford stand {stand.name}')
+        stand.owner_id = player.id
+        player.own_stands.append(stand.id)
+        player.money -= stand.prices.buy
+
     def next_turn(self):
         game.turn = (game.turn + 1) % len(self.players)
+
 
 game = Game()

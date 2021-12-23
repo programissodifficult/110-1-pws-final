@@ -11,7 +11,7 @@ class Button(ComponentBase):
     
     def init(self, text,  center, font, border_color, cb, *cbargs):
         self.text = self.children.create_component('Text', text, 'Normal', center)
-        text_rect = self.text.geometry.get_rect()
+        text_rect = self.text.make_surface().get_rect()
         text_rect.height += 15
         text_rect.width += 30
         text_rect.center = center
