@@ -1,3 +1,4 @@
+from .scenes.gameScene.RollButton import RollButton
 from .scenes.gameScene.ScoreBoard import ScoreBoard
 from .scenes.basicComponents.Text import Text
 from .scenes.basicComponents.Button import Button
@@ -19,4 +20,5 @@ ComponentRegistry = {
     "EffectGrid": EffectGrid,
     "MainKitchenGrid": MainKitchenGrid,
     "ScoreBoard": ScoreBoard,
+    "RollButton": RollButton
 }

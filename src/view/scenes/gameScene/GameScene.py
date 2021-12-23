@@ -32,11 +32,13 @@ class GameScene(Scene):
 
         for player in game.players:
             self.children.create_component('ScoreBoard', player.id)
+        
+        self.children.create_component('RollButton')
 
-    def handle_events(self, events):
-        for e in events:
-            if e.type == pygame.MOUSEBUTTONDOWN:
-                step = random.randint(1, 6)
-                self.players[game.turn].step(step)
-                game.current_player.get_grid().trigger()
-                game.next_turn()
+    # def handle_events(self, events):
+    #     for e in events:
+    #         if e.type == pygame.MOUSEBUTTONDOWN:
+    #             step = random.randint(1, 6)
+    #             self.players[game.turn].step(step)
+    #             game.current_player.get_grid().trigger()
+    #             game.next_turn()
