@@ -10,14 +10,15 @@ from ...CONST import *
 class RollButton(ComponentBase):
     def init(self):
         (width, height) = ScreenSize
-        self.button = self.children.create_component('Button', 'Go', (width / 2, height / 2), 'Normal', pygame.Color('black'), self.roll)
+        score_board_width = BoxSize * BoardGridWidth
+        self.button = self.children.create_component('Button', 'Go', (score_board_width / 2, height / 2), 'Normal', pygame.Color('black'), self.roll)
 
     def roll(self):
         timer = pygame.time.Clock()
         for i in range(40):
             self.button.content = str(i % 6 + 1)
             self.manager.rerender()
-            timer.tick(20)
+            timer.tick(40)
         
         step = random.randint(1, 6)
         self.button.content = str(step)
