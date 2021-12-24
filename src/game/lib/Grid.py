@@ -30,6 +30,9 @@ class FoodStand(Grid):
         else:
             return self.game.players[self.owner_id]
 
+    def upgrade(self):
+        self.level += 1
+
     def trigger(self):
         if self.owner != None:
             # 已有人購買的攤位，觸發獲利事件
@@ -50,8 +53,9 @@ class EventGrid(Grid):
         super().__init__(id, 'Event')
 
     def trigger(self):
-        # TODO
-        pass
+        card = self.game.draw_event_card()
+        confirm("經營卡", f"{card.event_description}：\n{card.effect_description}")
+        card.trigger(self.game.current_player)
 
 
 class EffectGrid(Grid):

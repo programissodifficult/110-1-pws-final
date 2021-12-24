@@ -6,8 +6,9 @@ from ...componentLib.ComponentBase import ComponentBase
 from ..basicComponents.Circle import Circle
 from ...CONST import *
 
-
+# l = [6] * 4 + [9] * 100
 def get_roll_number():
+    # return l.pop(0)
     return random.randint(1, 6) + random.randint(1, 6)
 
 
@@ -21,7 +22,7 @@ class RollButton(ComponentBase):
         # roll dice animation
         timer = pygame.time.Clock()
         for i in range(40):
-            self.button.content = str(get_roll_number())
+            self.button.content = str(random.randint(2, 12))
             self.manager.rerender()
             timer.tick(40)
 
@@ -39,7 +40,7 @@ class RollButton(ComponentBase):
     def next_turn(self):
         self.button.content = "Go"
         game.next_turn()
-        if game.current_player.idle_round > 0:
-            game.current_player.idle_round -= 1
+        if game.current_player.idle_action > 0:
+            game.current_player.idle_action -= 1
             confirm("停止行動", f"{game.current_player.name} 暫停行動一回合...")
             self.next_turn()
