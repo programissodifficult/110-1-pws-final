@@ -1,15 +1,17 @@
 from game.CONST import *
 from .GridId import GridId
 
+player_id = 0
 
 class Player:
-    def __init__(self, id, color):
-        self.id = id
-        self.name = PlayerNames[self.id]
-        self.color = color
-        self.home_position = HomePosition[id]
+    def __init__(self, player_id, char_id):
+        self.id = player_id
+        self.name = PlayerNames[char_id]
+        self.color = PlayerColors[char_id]
+        self.home_position = GridId(HomePosition[char_id])
         self.position = GridId(0)
         self.money = InitialMoney
+        self.idle_round = 0
 
     def step(self, steps):
         self.position = self.position + steps

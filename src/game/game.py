@@ -1,4 +1,5 @@
 import pygame
+import random
 
 from .lib.Grid import *
 from .lib.Player import Player
@@ -7,6 +8,13 @@ from .lib.Player import Player
 class Game:
     def __init__(self):
         self.turn = 0
+
+    def init(self, player_amount):
+        self.init_grids()
+        self.init_player(player_amount)
+        self.init_events()
+
+    def init_grids(self):
         self.grids = [
             MainKitchen(0, 0),
             FoodStand(1, "珍珠奶茶", 2),
@@ -49,16 +57,19 @@ class Game:
         for grid in self.grids:
             grid.game = self
 
-    def init(self, player_amount):
-        self.players = [
-            Player(0, pygame.Color('blue')),
-            Player(1, pygame.Color('red')),
-            Player(2, pygame.Color('green')),
-            Player(3, pygame.Color('yellow'))
-        ][:player_amount]
+    def init_player(self, player_amount):
+        characters = [0, 1, 2, 3]
+        random.shuffle(characters)
+        characters = characters[:player_amount]
+        self.players = [Player(index, char_id) for (index, char_id) in enumerate(characters)]
 
         for player in self.players:
             player.game = self
+
+    def init_events(self):
+        self.events = [
+
+        ]
 
     @property
     def current_player(self):
