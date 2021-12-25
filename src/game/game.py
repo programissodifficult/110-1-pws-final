@@ -79,6 +79,7 @@ class Game:
         owner = stand.owner
         if owner == None:
             raise Exception(f'Cannot profit stand {stand.name} with no owner')
+        # TODO: add discount, extra fee
         owner.alter_money(stand.prices.profit[stand.level])
 
     def afford_stand(self, player_id, grid_id):

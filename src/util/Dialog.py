@@ -2,7 +2,7 @@ import tkinter
 from tkinter import messagebox
 
 
-def confirm(title, message, *args):
+def confirm(title, message):
     # build and hide the main tkinter window
     root = tkinter.Tk()
     root.withdraw()

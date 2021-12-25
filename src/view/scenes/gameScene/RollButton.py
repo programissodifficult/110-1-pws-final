@@ -3,7 +3,6 @@ from game.game import game
 from util.Dialog import confirm
 
 from ...componentLib.ComponentBase import ComponentBase
-from ..basicComponents.Circle import Circle
 from ...CONST import *
 
 # l = [6] * 4 + [9] * 100

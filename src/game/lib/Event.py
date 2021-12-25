@@ -1,5 +1,4 @@
 import random
-from operator import attrgetter
 from util.Dialog import confirm
 
 
@@ -25,7 +24,7 @@ class AddTableEvent(Event):
     def trigger(self, triggerer):
         available_stands = [grid for grid in triggerer.own_stands if grid.level < 3]
         if len(available_stands):
-            target_grid = random.choice()
+            target_grid = random.choice(available_stands)
             target_grid.upgrade()
         else:
             confirm("", "你沒有任何可以升級的攤位QQ")
