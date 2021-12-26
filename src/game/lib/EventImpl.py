@@ -5,7 +5,8 @@ event_cards = [
     AddTableEvent("獲得米其林美食報導，遊客蜂擁而至", "可在自已的攤位免費添加一張桌子"),
     EveryOneAlterMoneyIfOwnEvent("麵粉原物料上漲", "麵食類攤位的老闆損失 450 元（當歸麵線、切仔麵、牛肉麵、鱔魚麵）", [4, 8, 22, 31], 450),
     IdleKitchenEvent("被發現販賣隔夜商品，評價下滑", "下次經過自己的中央廚房時不得領取金錢或研發技術"),
-    AlterMoneyNearestEvent("台北市舉行一年一度牛肉麵大賽", "最靠近牛肉麵攤位的玩家獲利 1200 元", 4, 1200)
+    AlterMoneyNearestEvent("台北市舉行一年一度牛肉麵大賽", "最靠近牛肉麵攤位的玩家獲利 1200 元", 4, 1200),
+    EveryoneTransferMoneyEvent("生意興隆，人們拿著大把鈔票要求加盟", "所有玩家給你300元", 300)
 ]
 
 
