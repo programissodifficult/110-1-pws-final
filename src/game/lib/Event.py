@@ -107,8 +107,16 @@ class TransferMoneyEvent(Event):
 # 所有玩家給玩家 A 一定量的錢
 # id: 24
 class EveryoneTransferMoneyEvent(Event):
+    def init(self, amount):
+        self.amount = amount
     def trigger(self, triggerer):
-        pass
+        for player in self.game.players:
+            if player == triggerer:
+                    pass
+            else:
+                player.alter_monoey(self.amount * -1)
+                triggerer.alter_money(self.amount)
+
 
 # 觸發玩家下次經過中央廚房不得領錢、研發技術
 # id: 4
