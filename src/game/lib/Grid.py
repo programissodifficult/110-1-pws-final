@@ -2,7 +2,14 @@ from util.Dialog import yesno, confirm
 from .GridId import GridId
 from .StandPrice import stand_prices
 
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from game.game import Game
+
+
 class Grid():
+    game = None  # type: Game
+
     def __init__(self, id, type):
         self.id = GridId(id)
         self.type = type
@@ -40,12 +47,7 @@ class FoodStand(Grid):
             confirm('台灣發大財!', f'{self.game.current_player.name} 光顧 {self.owner.name} 的 {self.name}，帶來 {self.prices.profit[self.level]} 元的收入!')
         else:
             # 無人攤位，觸發購買事件
-            if self.game.afford_stand(self.game.current_player.id, self.id):
-                result = yesno("購買攤位", f"是否以 {self.prices.buy} 元購買{self.name}")
-                if result:
-                    self.game.buy_stand(self.game.current_player.id, self.id)
-            else:
-                confirm("購買攤位", f"你的錢好像不太夠，無法購買 {self.prices.buy} 元的{self.name}")
+            self.game.ask_for_buy_stand(self.game.current_player.id, self.id)
 
 
 class EventGrid(Grid):

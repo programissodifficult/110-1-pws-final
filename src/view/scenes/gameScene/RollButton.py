@@ -5,10 +5,10 @@ from util.Dialog import confirm
 from ...componentLib.ComponentBase import ComponentBase
 from ...CONST import *
 
-# l = [6] * 4 + [9] * 100
+l = [1, 2] + [6] * 4 + [9] * 100
 def get_roll_number():
-    # return l.pop(0)
-    return random.randint(1, 6) + random.randint(1, 6)
+    return l.pop(0)
+    # return random.randint(1, 6) + random.randint(1, 6)
 
 
 class RollButton(ComponentBase):

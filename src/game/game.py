@@ -50,11 +50,9 @@ class Game:
 
         self.reshuffle_events()
 
-
     def reshuffle_events(self):
         self.event_pointer = 0
         random.shuffle(self.event_cards)
-
 
     # ############################################################
     #  game play helper
@@ -90,16 +88,44 @@ class Game:
         else:
             return True
 
+    def ask_for_buy_stand(self, player_id, stand_id):
+        player = self.players[player_id]
+        stand = self.grids[stand_id]
+        owner_msg = ''
+        if stand.owner_id != None:
+            owner_msg = f"向 {stand.owner.name} "
+        if self.afford_stand(player_id, stand_id):
+            result = yesno("購買攤位", f"是否以 {stand.prices.buy} 元{owner_msg}購買{stand.name}")
+            if result:
+                self.buy_stand(player_id, stand_id)
+        else:
+            confirm("購買攤位", f"你的錢好像不太夠，無法購買 {stand.prices.buy} 元的{stand.name}")
+
     def buy_stand(self, player_id, grid_id):
         player = self.players[player_id]
         stand = self.grids[grid_id]
+        owner = stand.owner
         if not self.afford_stand(player_id, grid_id):
             raise Exception(f'Player {player.name} cannot afford stand {stand.name}')
         stand.owner_id = player.id
         player.alter_money(-stand.prices.buy)
+        if owner:
+            owner.alter_money(stand.prices.buy)
 
     def next_turn(self):
         game.turn = (game.turn + 1) % len(self.players)
+
+    def random_remove_table(self, player_id):
+        player = self.players[player_id]
+        stands = player.own_stands
+        random.shuffle(stands)
+        for stand in stands:
+            if stand.level > 0:
+                stand.level -= 1
+                return stand
+        else:
+            confirm("沒有任何桌子可以移除")
+            return None
 
 
 game = Game()

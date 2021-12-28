@@ -1,8 +1,14 @@
 import random
 from util.Dialog import confirm
 
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from game.game import Game
 
-class Event:
+
+class Event(object):
+    game = None  # type: Game
+
     def __init__(self, event_description, effect_description, *args, **kwargs):
         self.event_description = event_description
         self.effect_description = effect_description
@@ -14,15 +20,23 @@ class Event:
     def trigger(self, triggerer):
         raise NotImplementedError
 
-# 觸發玩家停止行動一回合
-# id: 1
+
 class StopActionEvent(Event):
+    """觸發玩家停止行動一回合
+
+    For card id: 1
+    """
+
     def trigger(self, triggerer):
         triggerer.idle_action += 1
 
-# 觸發玩家隨機在自己的攤位免費添加一張桌子
-# id: 2
+
 class AddTableEvent(Event):
+    """觸發玩家隨機在自己的攤位免費添加一張桌子
+
+    For card id: 2
+    """
+
     def trigger(self, triggerer):
         available_stands = [grid for grid in triggerer.own_stands if grid.level < 3]
         if len(available_stands):
@@ -31,24 +45,36 @@ class AddTableEvent(Event):
         else:
             confirm("", "你沒有任何可以升級的攤位QQ")
 
-# 觸發玩家隨機拆除一張自己的桌子
-# id: 21
-class RemoveTableEvent(Event):
-    def trigger(self, triggerer):
-        pass
 
-# 觸發玩家獲得/失去一定數量的錢
-# id: 8, 12, 13, 14, 22, 23, 25
+class RemoveTableEvent(Event):
+    """觸發玩家隨機拆除一張自己的桌子
+
+    For card id: 21
+    """
+
+    def trigger(self, triggerer):
+        self.game.random_remove_table(triggerer.id)
+
+
 class AlterMoneyEvent(Event):
+    """觸發玩家獲得/失去一定數量的錢
+
+    For card id: 8, 12, 13, 14, 22, 23, 25
+    """
+
     def init(self, amount):
         self.amount = amount
 
     def trigger(self, triggerer):
         triggerer.alter_money(self.amount)
 
-# 離某攤位最近的玩家獲得/失去一定數量的錢
-# id: 5, 6, 7
+
 class AlterMoneyNearestEvent(Event):
+    """離某攤位最近的玩家獲得/失去一定數量的錢
+
+    For card id: 5, 6, 7
+    """
+
     def init(self, stand_id, amount):
         self.stand_id = stand_id
         self.amount = amount
@@ -57,9 +83,13 @@ class AlterMoneyNearestEvent(Event):
         nearest_player = min(self.game.players, key=lambda p: p.distance_to(self.stand_id))
         nearest_player.alter_money(self.amount)
 
-# 觸發玩家根據是否擁有攤位獲得/失去一定數量的錢
-# id: 11
-class EveryOneAlterMoneyIfOwnEvent(Event):
+
+class AlterMoneyIfOwnEvent(Event):
+    """觸發玩家根據是否擁有攤位獲得/失去一定數量的錢
+
+    For card id: 11
+    """
+
     def init(self, stand_id, amount_if_own, amount_otherwise):
         self.stand_id = stand_id
         self.amount_if_own = amount_if_own
@@ -71,9 +101,13 @@ class EveryOneAlterMoneyIfOwnEvent(Event):
         else:
             triggerer.alter_money(self.amount_otherwise)
 
-# 擁有某些攤位的玩家獲得/失去一定數量的錢
-# id: 3, 15
+
 class EveryOneAlterMoneyIfOwnEvent(Event):
+    """擁有某些攤位的玩家獲得/失去一定數量的錢
+
+    For card id: 3, 15
+    """
+
     def init(self, stand_ids, amount):
         self.stand_ids = stand_ids
         self.amount = amount
@@ -83,68 +117,137 @@ class EveryOneAlterMoneyIfOwnEvent(Event):
             if any(stand.id in self.stand_ids for stand in player.own_stands):
                 player.alter_money(-self.amount)
 
-# 觸發玩家隨機獲得/失去一定數量的錢
-# id: 10
+
 class RandomAlterMoneyEvent(Event):
-    def trigger(self, triggerer):
-        pass
+    """觸發玩家隨機獲得/失去一定數量的錢
 
-# 所有玩家獲得/失去一定數量的錢
-# id: 19
+    For card id: 10
+    """
+
+    def init(self, amount):
+        self.amount = amount
+
+    def trigger(self, triggerer):
+        success = random.choice([True, False])
+        if success:
+            triggerer.alter_money(self.amount)
+        else:
+            triggerer.alter_money(-self.amount)
+
+
 class EveryoneAlterMoneyEvent(Event):
+    """所有玩家獲得/失去一定數量的錢
+
+    For card id: 19
+    """
+
     def init(self, amount):
         self.amount = amount
+
     def trigger(self, triggerer):
         for player in self.game.players:
-            player.alter_monoey(self.amount)
+            player.alter_money(self.amount)
 
-# 玩家 A 給玩家 B 一定量的錢
-# id: 9
-class TransferMoneyEvent(Event):
+
+class TransferMoneyToNextEvent(Event):
+    """觸發玩家給下一位玩家一定量的錢
+
+    For card id: 9
+    """
+
+    def init(self, amount):
+        self.amount = amount
+
     def trigger(self, triggerer):
-        pass
+        next_id = triggerer.next_player().id
+        self.game.player_transfer_money(next_id, triggerer.id, self.amount)
 
-# 所有玩家給玩家 A 一定量的錢
-# id: 24
+
 class EveryoneTransferMoneyEvent(Event):
+    """所有玩家給玩家 A 一定量的錢
+
+    For card id: 24
+    """
+
     def init(self, amount):
         self.amount = amount
+
     def trigger(self, triggerer):
         for player in self.game.players:
-            if player == triggerer:
-                    pass
-            else:
-                player.alter_monoey(self.amount * -1)
-                triggerer.alter_money(self.amount)
+            if player != triggerer:
+                self.game.player_transfer_money(triggerer.id, player.id, self.amount)
 
 
-# 觸發玩家下次經過中央廚房不得領錢、研發技術
-# id: 4
 class IdleKitchenEvent(Event):
+    """觸發玩家下次經過中央廚房不得領錢、研發技術
+
+    For card id: 4
+    """
+
     def trigger(self, triggerer):
         triggerer.idle_kitchen += 1
 
-# 所有玩家擲骰，大於七點者獲利 700 ，否則隨機拆除一張桌子
-# id: 16
+
 class RaceGainOrRemoveTableEvent(Event):
-    def trigger(self, triggerer):
-        pass
+    """觸發玩家和上一位玩家比，擁有較多攤位者拆除一張桌子，較少攤位者獲利
 
-# 觸發玩家下次添加桌子免費
-# id: 17
+    For card id: 16
+    """
+
+    def init(self, amount):
+        self.amount = amount
+
+    def trigger(self, triggerer):
+        last_player = triggerer.last_player()
+        last_player_stands = last_player.own_stands
+        triggerer_stands = triggerer.own_stands
+        if len(last_player_stands) > len(triggerer_stands):
+            self.game.random_remove_table(last_player.id)
+            triggerer.alter_money(self.amount)
+        elif len(last_player_stands) < len(triggerer_stands):
+            self.game.random_remove_table(triggerer.id)
+            last_player.alter_money(self.amount)
+        else:
+            last_player.alter_money(self.amount // 2)
+            triggerer.alter_money(self.amount // 2)
+
+
 class FreeTableEvent(Event):
-    def trigger(self, triggerer):
-        pass
+    """觸發玩家下次添加桌子免費
 
-# 觸發玩家可選擇是否購買一個隨機選中的無人攤位
-# id: 18
+    For card id: 17
+    """
+
+    def trigger(self, triggerer):
+        triggerer.free_table += 1
+
+
 class RandomBuyStandEvent(Event):
+    """觸發玩家可選擇是否購買一個隨機選中的無人攤位
+
+    For card id: 18
+    """
+
     def trigger(self, triggerer):
-        pass
+        unclaimed_stands = [grid for grid in self.game.grids if (grid.type == 'FoodStand' and grid.owner_id == None)]
+        stand = random.choice(unclaimed_stands)
+        self.game.ask_for_buy_stand(triggerer.id, stand.id)
 
 
-# 觸發玩家可選擇是否購買一個隨機選中的有人攤位
-# id: 20
 class RandomBuyOthersStandEvent(Event):
+    """觸發玩家可選擇是否購買一個隨機選中的有人攤位
+
+    For card id: 20
+    """
+
     def trigger(self, triggerer):
-        pass
+        others_stands = [grid for grid in self.game.grids if (
+            grid.type == 'FoodStand' and
+            not grid.owner_id in [None, triggerer.id] and
+            grid.level == 0)
+        ]
+        if len(others_stands) > 0:
+            stand = random.choice(others_stands)
+            self.game.ask_for_buy_stand(triggerer.id, stand.id)
+        else:
+            confirm('沒有可以購買的攤位QQ')

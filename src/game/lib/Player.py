@@ -2,9 +2,16 @@ from view.CONST import BoardGridWidth
 from ..CONST import *
 from .GridId import GridId
 
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from game.game import Game
+
 player_id = 0
 
+
 class Player:
+    game = None  # type: Game
+
     def __init__(self, player_id, char_id):
         self.id = player_id
         self.name = CharacterNames[char_id]
@@ -14,6 +21,7 @@ class Player:
         self.money = InitialMoney
         self.idle_action = 0
         self.idle_kitchen = 0
+        self.free_table = 0
 
     @property
     def own_stands(self):
@@ -32,3 +40,9 @@ class Player:
 
     def get_grid(self):
         return self.game.grids[self.position]
+
+    def last_player(self):
+        return self.game.players[(self.id - 1)]
+
+    def next_player(self):
+        return self.game.players[(self.id + 1) % len(self.game.players)]
