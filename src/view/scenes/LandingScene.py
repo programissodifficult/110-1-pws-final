@@ -12,7 +12,7 @@ class LandingScene(Scene):
 
     def init(self):
         (width, height) = ScreenSize
-        self.children.create_component('Text', 'Monopoly', 'Title', (width / 2, height / 3))
+        self.children.create_component('Text', 'Monopoly', 'Title', center=(width / 2, height / 3))
         # self.children.create_component(Text('> How much player is there? <', 'Normal', width / 2, height * 1 / 2))
         # self.children.create_component(Button('1', (width * 4 / 12, height * 2 / 3),'Normal', pygame.Color('black'), lambda : self.start_game(1)))
         self.children.create_component('Button', '2P', (width * 4 / 12, height * 2 / 3), 'Normal', pygame.Color('black'), self.start_game, 2)

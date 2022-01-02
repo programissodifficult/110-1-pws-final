@@ -12,11 +12,12 @@ fonts = {
 }
 
 
+# about Text positioning, see https://www.pygame.org/docs/ref/rect.html for rect attributes
 class Text(ComponentBase):
-    def init(self, content, font_type, center, color=DefaultTextColor, background_color=None):
+    def init(self, content, font_type, color=DefaultTextColor, background_color=None, **kwargs):
         self.content = content
         self.font_type = font_type
-        self.center = center
+        self.pos = kwargs
         self.color = color
         self.background_color = background_color
 
@@ -25,4 +26,4 @@ class Text(ComponentBase):
 
     def render(self):
         text_surf = self.make_surface()
-        self.screen.blit(text_surf, text_surf.get_rect(center=self.center))
+        self.screen.blit(text_surf, text_surf.get_rect(**self.pos))

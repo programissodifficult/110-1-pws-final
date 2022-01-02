@@ -3,9 +3,9 @@ from PIL import Image
 from os import listdir, path
 from pathlib import Path
 
-SIZE = 64
-img_folder = 'assets/standImages512'
-out_folder = f'assets/standImages{SIZE}'
+SIZE = 24
+img_folder = 'assets/icons512'
+out_folder = f'assets/icons{SIZE}'
 
 Path(out_folder).mkdir(exist_ok=True)
 

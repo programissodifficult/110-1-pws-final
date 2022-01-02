@@ -8,11 +8,11 @@ from .Rectangle import Rectangle
 class Button(ComponentBase):
     def __init__(self):
         super().__init__()
-    
+
     def init(self, content, center, font, border_color, cb, *cbargs):
         self.content = content
         self.center = center
-        self.text = self.children.create_component('Text', self.content, 'Normal', self.center)
+        self.text = self.children.create_component('Text', self.content, 'Normal', center=self.center)
         text_rect = self.text.make_surface().get_rect()
         text_rect.height += 15
         text_rect.width += 30
