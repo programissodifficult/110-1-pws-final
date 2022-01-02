@@ -108,6 +108,11 @@ class MainKitchen(Grid):
         super().__init__(id, 'MainKitchen')
         self.player_id = player_id
 
+    @property
+    def owner(self):
+        return self.game.players[self.player_id]
+
     def trigger(self, triggerer):
-        # TODO
-        pass
+        if triggerer.id != self.player_id:
+            self.game.player_transfer_money(self.player_id, triggerer.id, 200)
+            confirm("參觀中央廚房", f"{triggerer.name} 拜訪 {self.owner.name} 的中央廚房，支付參觀費 200 元")
