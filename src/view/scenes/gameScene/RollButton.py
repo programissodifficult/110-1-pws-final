@@ -1,11 +1,13 @@
 import random
 from game.game import game
+from game.CONST import BoardGridWidth
 from util.Dialog import confirm
 
 from ...componentLib.ComponentBase import ComponentBase
 from ...CONST import *
 
-l = [1, 2] + [6] * 4 + [9] * 100
+# l = [1, 2] + [6] * 4 + [9] * 100
+l = [1, 2] + [36] * 100
 def get_roll_number():
     return l.pop(0)
     # return random.randint(1, 6) + random.randint(1, 6)
@@ -28,10 +30,11 @@ class RollButton(ComponentBase):
         # step animation
         step = get_roll_number()
         self.button.content = str(step)
+        self.manager.rerender()
         self.manager.scene.players[game.turn].step(step)
 
         # trigger grid effect
-        game.current_player.get_grid().trigger()
+        game.current_player.get_grid().trigger(game.current_player)
 
         # post round
         self.next_turn()

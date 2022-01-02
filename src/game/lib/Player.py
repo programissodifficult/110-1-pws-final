@@ -1,4 +1,4 @@
-from view.CONST import BoardGridWidth
+from util.Dialog import confirm, yesno
 from ..CONST import *
 from .GridId import GridId
 
@@ -17,11 +17,19 @@ class Player:
         self.name = CharacterNames[char_id]
         self.color = CharacterColors[char_id]
         self.home_position = GridId(HomePosition[char_id])
-        self.position = GridId(0)
+        self.position = GridId(HomePosition[char_id])
         self.money = InitialMoney
         self.idle_action = 0
         self.idle_kitchen = 0
         self.free_table = 0
+
+        # character ability
+        self.invent_discount = 0
+
+        # Tech ability
+        self.double_table = False
+        self.build_discount = 0
+        self.extra_income = 0
 
     @property
     def own_stands(self):
@@ -37,6 +45,12 @@ class Player:
 
     def step(self, steps):
         self.position = self.position + steps
+
+    def get_tech_invent_price(self):
+        return TechInventPrice - self.invent_discount
+
+    def get_income(self):
+        return BaseHomeIncome + self.extra_income
 
     def get_grid(self):
         return self.game.grids[self.position]

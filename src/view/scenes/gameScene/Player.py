@@ -20,14 +20,13 @@ class Player(ComponentBase):
         return grid_coord(self.player.position, self.player.id)
 
     def step(self, step_size):
-        self.step_to(self.player.position + step_size)
-
-    def step_to(self, pos):
         timer = pygame.time.Clock()
-        while pos != self.player.position:
+        for i in range(step_size):
             self.player.step(1)
             self.manager.rerender()
-            timer.tick(3)
+            timer.tick(20)
+            if self.player.position == self.player.home_position:
+                game.pass_kitchen(self.player_id)
 
     def update(self):
         self.token.center = self.get_center()

@@ -1,5 +1,6 @@
 from game.game import game
-from ...CONST import BoardGridWidth, BoxSize, ScreenSize
+from game.CONST import BoardGridWidth
+from ...CONST import BoxSize, ScreenSize
 from ...componentLib.ComponentBase import ComponentBase
 
 

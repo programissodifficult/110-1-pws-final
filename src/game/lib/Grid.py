@@ -14,7 +14,7 @@ class Grid():
         self.id = GridId(id)
         self.type = type
 
-    def trigger(self):
+    def trigger(self, triggerer):
         pass
 
 
@@ -40,24 +40,28 @@ class FoodStand(Grid):
     def upgrade(self):
         self.level += 1
 
-    def trigger(self):
+    def trigger(self, triggerer):
         if self.owner != None:
-            # 已有人購買的攤位，觸發獲利事件
-            self.game.profit_stand(self.id)
-            confirm('台灣發大財!', f'{self.game.current_player.name} 光顧 {self.owner.name} 的 {self.name}，帶來 {self.prices.profit[self.level]} 元的收入!')
+            if self.owner != triggerer:
+                # 已被別人購買的攤位，觸發獲利事件
+                self.game.profit_stand(self.id)
+                confirm('台灣發大財!', f'{triggerer.name} 光顧 {self.owner.name} 的 {self.name}，帶來 {self.prices.profit[self.level]} 元的收入!')
+            else:
+                # 自己的攤位，可添加桌子
+                self.game.ask_for_build_table(triggerer.id, self.id)
         else:
             # 無人攤位，觸發購買事件
-            self.game.ask_for_buy_stand(self.game.current_player.id, self.id)
+            self.game.ask_for_buy_stand(triggerer.id, self.id)
 
 
 class EventGrid(Grid):
     def __init__(self, id):
         super().__init__(id, 'Event')
 
-    def trigger(self):
+    def trigger(self, triggerer):
         card = self.game.draw_event_card()
         confirm("經營卡", f"{card.event_description}：\n{card.effect_description}")
-        card.trigger(self.game.current_player)
+        card.trigger(triggerer)
 
 
 class EffectGrid(Grid):
@@ -65,7 +69,7 @@ class EffectGrid(Grid):
         super().__init__(id, 'Effect')
         self.effect_type = effect_type
 
-    def trigger(self):
+    def trigger(self, triggerer):
         # TODO
         pass
 
@@ -75,6 +79,6 @@ class MainKitchen(Grid):
         super().__init__(id, 'MainKitchen')
         self.player_id = player_id
 
-    def trigger(self):
+    def trigger(self, triggerer):
         # TODO
         pass
