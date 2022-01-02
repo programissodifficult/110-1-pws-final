@@ -1,10 +1,11 @@
-from .scenes.gameScene.RollButton import RollButton
-from .scenes.gameScene.ScoreBoard import ScoreBoard
 from .scenes.basicComponents.Text import Text
 from .scenes.basicComponents.Button import Button
 from .scenes.basicComponents.Circle import Circle
 from .scenes.basicComponents.Rectangle import Rectangle
+from .scenes.basicComponents.Image import Image
 
+from .scenes.gameScene.RollButton import RollButton
+from .scenes.gameScene.ScoreBoard import ScoreBoard
 from .scenes.gameScene.Grid import FoodStandGrid, EventGrid, EffectGrid, MainKitchenGrid
 from .scenes.gameScene.Player import Player
 
@@ -14,6 +15,7 @@ ComponentRegistry = {
     "Button": Button,
     "Circle": Circle,
     "Rectangle": Rectangle,
+    "Image": Image,
     "Player": Player,
     "FoodStandGrid": FoodStandGrid,
     "EventGrid": EventGrid,
