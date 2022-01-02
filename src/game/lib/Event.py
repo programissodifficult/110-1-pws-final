@@ -80,7 +80,7 @@ class AlterMoneyNearestEvent(Event):
         self.amount = amount
 
     def trigger(self, triggerer):
-        nearest_player = min(self.game.players, key=lambda p: p.distance_to(self.stand_id))
+        nearest_player = min(self.game.players, key=lambda p: (p.distance_to(self.stand_id), p.position.get()))
         nearest_player.alter_money(self.amount)
 
 

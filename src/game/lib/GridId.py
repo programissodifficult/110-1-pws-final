@@ -5,6 +5,9 @@ class GridId:
     def __init__(self, pos) -> None:
         self.id = pos % MapSize
 
+    def get(self):
+        return self.id
+
     @property
     def line(self):
         return self.id // 9
