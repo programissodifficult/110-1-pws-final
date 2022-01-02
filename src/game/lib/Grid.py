@@ -67,9 +67,10 @@ class EventGrid(Grid):
 
 
 class EffectGrid(Grid):
-    def __init__(self, id, effect_type):
+    def __init__(self, id, effect_type, name):
         super().__init__(id, 'Effect')
         self.effect_type = effect_type
+        self.name = name
         self.effect_handler = {
             "fee": self.trigger_fee,
             "switch": self.trigger_switch,

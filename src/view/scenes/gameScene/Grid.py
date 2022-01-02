@@ -41,15 +41,15 @@ class EffectGrid(Grid):
     def init(self, grid):
         super().init(grid)
         (x, y) = self.grid_padding
-        self.children.create_component('Text', 'Effect', 'Small', (x + BoxSize / 2, y + BoxSize / 2))
-        self.children.create_component('Text', self.grid.effect_type, 'Small', (x + BoxSize / 2, y + BoxSize * 3 / 4))
+        self.children.create_component('Text', '效果', 'Small', (x + BoxSize / 2, y + BoxSize / 3))
+        self.children.create_component('Text', self.grid.name, 'Small', (x + BoxSize / 2, y + BoxSize * 2 / 3))
 
 
 class EventGrid(Grid):
     def init(self, grid):
         super().init(grid)
         (x, y) = self.grid_padding
-        self.children.create_component('Text', '經營卡!', 'Small', (x + BoxSize / 2, y + BoxSize / 2))
+        self.children.create_component('Text', '經營卡', 'Small', (x + BoxSize / 2, y + BoxSize / 2))
 
 
 class MainKitchenGrid(Grid):
