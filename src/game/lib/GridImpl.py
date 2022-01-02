@@ -24,7 +24,7 @@ def make_grids():
         MainKitchen(18, 2),
         FoodStand(19, "四神湯", 2),
         FoodStand(20, "筒仔米糕", 0),
-        EffectGrid(21, "rest"),
+        EffectGrid(21, "buy"),
         FoodStand(22, "當歸麵線", 3),
         FoodStand(23, "棺材板", 0),
         EventGrid(24),

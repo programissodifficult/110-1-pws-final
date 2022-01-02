@@ -1,3 +1,4 @@
+import random
 from util.Dialog import yesno, confirm
 from .GridId import GridId
 from .StandPrice import stand_prices
@@ -69,10 +70,37 @@ class EffectGrid(Grid):
     def __init__(self, id, effect_type):
         super().__init__(id, 'Effect')
         self.effect_type = effect_type
+        self.effect_handler = {
+            "fee": self.trigger_fee,
+            "switch": self.trigger_switch,
+            "rest": self.trigger_rest,
+            "buy": self.trigger_buy,
+        }
 
     def trigger(self, triggerer):
-        # TODO
-        pass
+        self.effect_handler[self.effect_type](triggerer)
+
+    def trigger_fee(self, triggerer):
+        for p in self.game.players:
+            if p != triggerer:
+                self.game.player_transfer_money(triggerer.id, p.id, 200)
+        confirm('效果格', f'向所有玩家收取 200 元')
+
+    def trigger_switch(self, triggerer):
+        other = random.choice([p for p in self.game.players if p != triggerer])
+        self.game.switch_position(other.id, triggerer.id)
+        confirm('效果格', f'隨機和一位玩家交換位置：\n  {triggerer.name} 和 {other.name} 交換位置了!')
+
+    def trigger_rest(self, triggerer):
+        other = random.choice([p for p in self.game.players if p != triggerer])
+        other.idle_action += 1
+        confirm('效果格', f'隨機一位玩家休息一回合：\n  {other.name} 休息一回合')
+
+    def trigger_buy(self, triggerer):
+        confirm('效果格', f'可以隨機購買一個攤位')
+        unclaimed_stands = [grid for grid in self.game.grids if (grid.type == 'FoodStand' and grid.owner_id == None)]
+        stand = random.choice(unclaimed_stands)
+        self.game.ask_for_buy_stand(triggerer.id, stand.id)
 
 
 class MainKitchen(Grid):

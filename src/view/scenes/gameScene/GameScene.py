@@ -15,7 +15,7 @@ GridClassByType = {
 
 class GameScene(Scene):
     def __init__(self):
-        super().__init__('game', background_color=pygame.Color('white'))
+        super().__init__('game')
         self.grids = []
         self.players = []
 
@@ -34,11 +34,3 @@ class GameScene(Scene):
             self.children.create_component('ScoreBoard', player.id)
         
         self.children.create_component('RollButton')
-
-    # def handle_events(self, events):
-    #     for e in events:
-    #         if e.type == pygame.MOUSEBUTTONDOWN:
-    #             step = random.randint(1, 6)
-    #             self.players[game.turn].step(step)
-    #             game.current_player.get_grid().trigger()
-    #             game.next_turn()

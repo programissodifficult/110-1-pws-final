@@ -227,5 +227,10 @@ class Game:
             confirm("沒有任何桌子可以移除")
             return None
 
+    def switch_position(self, player_id_1, player_id_2):
+        player_1 = self.players[player_id_1]
+        player_2 = self.players[player_id_2]
+        player_1.position, player_2.position = player_2.position, player_1.position
+
 
 game = Game()
