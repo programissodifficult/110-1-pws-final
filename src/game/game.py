@@ -94,13 +94,20 @@ class Game:
         receiver.alter_money(amount)
         giver.alter_money(-amount)
 
-    def profit_stand(self, grid_id):
+    def get_stand_profit(self, grid_id, triggerer_id):
+        stand = self.grids[grid_id]
+        triggerer = self.players[triggerer_id]
+        owner = stand.owner
+        if owner == None:
+            raise Exception(f'Cannot get profit of stand {stand.name} with no owner')
+        return stand.prices.profit[stand.level] - triggerer.stand_fee_discount + owner.extra_stand_fee
+
+    def profit_stand(self, grid_id, triggerer_id):
         stand = self.grids[grid_id]
         owner = stand.owner
         if owner == None:
             raise Exception(f'Cannot profit stand {stand.name} with no owner')
-        # TODO: add discount, extra fee
-        owner.alter_money(stand.prices.profit[stand.level])
+        owner.alter_money(self.get_stand_profit(grid_id, triggerer_id))
 
     def get_stand_buy_price(self, player_id, grid_id):
         stand = self.grids[grid_id]

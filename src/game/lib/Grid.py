@@ -44,8 +44,9 @@ class FoodStand(Grid):
         if self.owner != None:
             if self.owner != triggerer:
                 # 已被別人購買的攤位，觸發獲利事件
-                self.game.profit_stand(self.id)
-                confirm('台灣發大財!', f'{triggerer.name} 光顧 {self.owner.name} 的 {self.name}，帶來 {self.prices.profit[self.level]} 元的收入!')
+                self.game.profit_stand(self.id, triggerer.id)
+                profit = self.game.get_stand_profit(self.id, triggerer.id)
+                confirm('台灣發大財!', f'{triggerer.name} 光顧 {self.owner.name} 的 {self.name}，帶來 {profit} 元的收入!')
             else:
                 # 自己的攤位，可添加桌子
                 self.game.ask_for_build_table(triggerer.id, self.id)
