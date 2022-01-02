@@ -72,6 +72,9 @@ class Game:
     #  game play helper
     # ############################################################
 
+    def player_exists(self, player_id):
+        return 0 <= player_id and player_id < len(self.players)
+
     def draw_event_card(self):
         card = self.event_cards[self.event_pointer]
         self.event_pointer += 1
@@ -198,7 +201,7 @@ class Game:
         # sanity check
         if player.money < price:
             print(Exception(f'[Game.build_stand] Player {player.name} cannot afford building stand {stand.name}'))
-    
+
         if stand.level == StandMaxLevel:
             print(Exception(f'[Game.build_stand] Stand {stand.name} already at max level'))
 

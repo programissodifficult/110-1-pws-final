@@ -230,8 +230,11 @@ class RandomBuyStandEvent(Event):
 
     def trigger(self, triggerer):
         unclaimed_stands = [grid for grid in self.game.grids if (grid.type == 'FoodStand' and grid.owner_id == None)]
-        stand = random.choice(unclaimed_stands)
-        self.game.ask_for_buy_stand(triggerer.id, stand.id)
+        if len(unclaimed_stands) > 0:
+            stand = random.choice(unclaimed_stands)
+            self.game.ask_for_buy_stand(triggerer.id, stand.id)
+        else:
+            confirm('經營卡', f'已經沒有無人的攤位了')
 
 
 class RandomBuyOthersStandEvent(Event):

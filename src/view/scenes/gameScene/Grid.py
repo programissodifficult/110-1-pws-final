@@ -12,8 +12,7 @@ from .gridHelper import grid_coord
 class Grid(ComponentBase):
     def init(self, grid):
         self.id = grid.id
-        self.box_color = DefaultBoxColor
-        self.children.create_component('Rectangle', BoxSize, BoxSize, *grid_coord(self.id), self.box_color)
+        self.border = self.children.create_component('Rectangle', BoxSize, BoxSize, *grid_coord(self.id), DefaultBoxColor)
 
     @property
     def grid(self):
@@ -35,6 +34,8 @@ class FoodStandGrid(Grid):
 
     def update(self):
         self.name_label.content = self.grid.name + (f'({self.grid.level})' if self.grid.level else '')
+        if self.grid.owner != None:
+            self.border.color = self.grid.owner.color
 
 
 class EffectGrid(Grid):

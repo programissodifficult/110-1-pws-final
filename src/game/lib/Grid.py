@@ -26,7 +26,6 @@ class FoodStand(Grid):
         self.level = 0
         self.price_level = price_level
         self.owner_id = None
-
     @property
     def prices(self):
         return stand_prices[self.price_level]
@@ -100,8 +99,11 @@ class EffectGrid(Grid):
     def trigger_buy(self, triggerer):
         confirm('效果格', f'可以隨機購買一個攤位')
         unclaimed_stands = [grid for grid in self.game.grids if (grid.type == 'FoodStand' and grid.owner_id == None)]
-        stand = random.choice(unclaimed_stands)
-        self.game.ask_for_buy_stand(triggerer.id, stand.id)
+        if len(unclaimed_stands) > 0:
+            stand = random.choice(unclaimed_stands)
+            self.game.ask_for_buy_stand(triggerer.id, stand.id)
+        else: 
+            confirm('效果格', f'已經沒有無人的攤位了')
 
 
 class MainKitchen(Grid):
@@ -114,6 +116,6 @@ class MainKitchen(Grid):
         return self.game.players[self.player_id]
 
     def trigger(self, triggerer):
-        if triggerer.id != self.player_id:
+        if triggerer.id != self.player_id and self.game.player_exists(self.player_id):
             self.game.player_transfer_money(self.player_id, triggerer.id, 200)
             confirm("參觀中央廚房", f"{triggerer.name} 拜訪 {self.owner.name} 的中央廚房，支付參觀費 200 元")
