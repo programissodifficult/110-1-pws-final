@@ -22,6 +22,7 @@ class Player:
         self.idle_action = 0
         self.idle_kitchen = 0
         self.free_table = 0
+        self.tech_invented = 0
 
         # character ability
         self.invent_discount = 0
