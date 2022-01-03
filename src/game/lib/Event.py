@@ -43,7 +43,7 @@ class AddTableEvent(Event):
             target_grid = random.choice(available_stands)
             target_grid.upgrade()
         else:
-            confirm("", "你沒有任何可以升級的攤位QQ")
+            confirm("升級攤位", "你沒有任何可以升級的攤位QQ")
 
 
 class RemoveTableEvent(Event):

@@ -1,6 +1,6 @@
 import pygame
 
-InitialMoney = 10000
+InitialMoney = 1000
 HomePosition = [0, 9, 18, 27]
 BaseHomeIncome = 1000
 TechInventPrice = 4000

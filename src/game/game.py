@@ -228,7 +228,7 @@ class Game:
                 stand.level -= 1
                 return stand
         else:
-            confirm("沒有任何桌子可以移除")
+            confirm("移除桌子", "沒有任何桌子可以移除")
             return None
 
     def switch_position(self, player_id_1, player_id_2):
