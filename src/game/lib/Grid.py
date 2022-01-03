@@ -1,5 +1,6 @@
 import random
 from util.Dialog import yesno, confirm
+from ..CONST import CharacterNames
 from .GridId import GridId
 from .StandPrice import stand_prices
 
@@ -116,6 +117,10 @@ class MainKitchen(Grid):
         return self.game.players_by_char[self.character_id]
 
     def trigger(self, triggerer):
-        if triggerer.id != self.owner.id and self.game.player_exists(self.owner.id):
+        if self.owner == None:
+            confirm('參觀中央廚房', f"這裡是{CharacterNames[self.character_id]}的中央廚房，不過好像沒有人在")
+            return
+
+        if triggerer.id != self.owner.id:
             self.game.player_transfer_money(self.owner.id, triggerer.id, 200)
             confirm("參觀中央廚房", f"{triggerer.name} 拜訪 {self.owner.name} 的中央廚房，支付參觀費 200 元")
