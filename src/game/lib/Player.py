@@ -14,6 +14,7 @@ class Player:
 
     def __init__(self, player_id, char_id):
         self.id = player_id
+        self.character_id = char_id
         self.name = CharacterNames[char_id]
         self.color = CharacterColors[char_id]
         self.home_position = GridId(HomePosition[char_id])

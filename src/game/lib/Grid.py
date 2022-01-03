@@ -107,15 +107,15 @@ class EffectGrid(Grid):
 
 
 class MainKitchen(Grid):
-    def __init__(self, id, player_id):
+    def __init__(self, id, character_id):
         super().__init__(id, 'MainKitchen')
-        self.player_id = player_id
+        self.character_id = character_id
 
     @property
     def owner(self):
-        return self.game.players[self.player_id]
+        return self.game.players_by_char[self.character_id]
 
     def trigger(self, triggerer):
-        if triggerer.id != self.player_id and self.game.player_exists(self.player_id):
-            self.game.player_transfer_money(self.player_id, triggerer.id, 200)
+        if triggerer.id != self.owner.id and self.game.player_exists(self.owner.id):
+            self.game.player_transfer_money(self.owner.id, triggerer.id, 200)
             confirm("參觀中央廚房", f"{triggerer.name} 拜訪 {self.owner.name} 的中央廚房，支付參觀費 200 元")

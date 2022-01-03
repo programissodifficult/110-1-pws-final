@@ -44,7 +44,9 @@ class Game:
         characters = characters[:player_amount]
         self.players = [Player(index, char_id) for (index, char_id) in enumerate(characters)]
 
+        self.players_by_char = [None] * 4
         for player in self.players:
+            self.players_by_char[player.character_id] = player
             player.game = self
 
     def init_events(self):
