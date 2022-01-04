@@ -15,7 +15,7 @@ event_cards = [
     AlterMoneyEvent("客人稱讚商品好吃，好康道相報", "獲利 600 元", 600),
     AlterMoneyEvent("媒體採訪報導，增加曝光度，知名度大增", "獲利 750 元", 750),
     AlterMoneyEvent("推出新菜色，大受好評", "獲利 1200 元", 1200),
-    EveryOneAlterMoneyIfOwnEvent("腸病毒肆虐，飲料類商品滯銷", "有飲料商品的攤位損失 500 元", [1, 16], -500),
+    EveryOneAlterMoneyIfOwnEvent("適逢冬至，補冬商品熱賣", "薑母鴨和羊肉爐攤位的老闆獲得 500 元", [32, 35], 500),
     RaceGainOrRemoveTableEvent("都市更新提案發展，是否拆除違建", "和上一位玩家比，擁有較多攤位的人損失一張桌子，較少攤位的人獲利 700 元（平手則各獲得一半）", 700),
     FreeTableEvent("消費券效益，攤位座無虛席", "下次添加桌子時不用付建造費用"),
     RandomBuyStandEvent("金主投資，店面規模擴張", "可以隨機購買一個還沒有人購買的攤位"),

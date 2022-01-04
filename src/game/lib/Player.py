@@ -38,6 +38,9 @@ class Player:
         self.same_spot_fee = 0
         self.build_discount = 0
 
+    def init(self):
+        self.game.players_by_char[self.character_id] = self
+
     @property
     def own_stands(self):
         return [grid for grid in self.game.grids if (grid.type == 'FoodStand' and grid.owner_id == self.id)]

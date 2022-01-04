@@ -27,8 +27,8 @@ class Game:
     # ############################################################
 
     def init(self, player_amount):
+        self.init_players(player_amount)
         self.init_grids()
-        self.init_player(player_amount)
         self.init_events()
         self.init_techs()
 
@@ -37,8 +37,9 @@ class Game:
 
         for grid in self.grids:
             grid.game = self
+            grid.init()
 
-    def init_player(self, player_amount):
+    def init_players(self, player_amount):
         characters = [0, 1, 2, 3]
         random.shuffle(characters)
         characters = characters[:player_amount]
@@ -46,8 +47,8 @@ class Game:
 
         self.players_by_char = [None] * 4
         for player in self.players:
-            self.players_by_char[player.character_id] = player
             player.game = self
+            player.init()
 
     def init_events(self):
         self.event_cards = make_event_cards()

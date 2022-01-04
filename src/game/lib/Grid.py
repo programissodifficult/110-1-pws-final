@@ -16,17 +16,27 @@ class Grid():
         self.id = GridId(id)
         self.type = type
 
+    def init(self):
+        pass
+
     def trigger(self, triggerer):
         pass
 
 
 class FoodStand(Grid):
-    def __init__(self, id, name, price_level):
+    def __init__(self, id, name, price_level, default_char_id = None):
         super().__init__(id, 'FoodStand')
         self.name = name
         self.level = 0
         self.price_level = price_level
         self.owner_id = None
+        self.default_char_id = default_char_id
+
+    def init(self):
+        if self.default_char_id != None:
+            default_owner = self.game.players_by_char[self.default_char_id]
+            if default_owner != None:
+                self.owner_id = default_owner.id
 
     @property
     def prices(self):
