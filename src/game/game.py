@@ -215,6 +215,7 @@ class Game:
 
         if player.free_table:
             player.free_table -= 1
+            confirm('免費建造桌子', '[經營卡效果] 免費建造一張桌子!')
         else:
             player.alter_money(-price)
 

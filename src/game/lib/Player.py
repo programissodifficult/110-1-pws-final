@@ -22,15 +22,15 @@ class Player:
         self.home_position = GridId(HomePosition[char_id])
         self.position = GridId(HomePosition[char_id])
         self.money = InitialMoney
+        self.tech_invented = []
+
+        # temp effect
         self.idle_action = 0
         self.idle_kitchen = 0
         self.free_table = 0
-        self.tech_invented = []
-
-        # character ability
-        self.invent_discount = 0
 
         # Tech ability
+        self.invent_discount = 0
         self.double_table = False
         self.reverse_visit_kitchen = False
         self.extra_income = 0
@@ -97,12 +97,22 @@ class Player:
         stands = self.own_stands
         stand_names = [stand.name for stand in self.own_stands] if len(stands) else ['無']
         tech_info = ''.join([f'  - [{tech.score}分] {tech.ability_description}\n' for tech in self.tech_invented])
+        temp_effect = ''
+        if self.idle_action:
+            temp_effect += f'  - 暫停行動 {self.idle_action} 回合\n'
+        if self.idle_kitchen:
+            temp_effect += f'  - 經過中央廚房不得領錢、研發科技 {self.idle_kitchen} 回合\n'
+        if self.free_table:
+            temp_effect += f'  - 免費建造桌子 {self.free_table} 次'
+
         s = f"""玩家：{self.name}
 
 角色能力：{self.character.ability_description}
 現金：{self.money}
 攤位：{', '.join(stand_names)}
 技術：
-{tech_info}
+{tech_info if tech_info else '(無)'}
+暫時效果：
+{temp_effect if temp_effect else '(無)'}
         """
         confirm('玩家資訊', s)
