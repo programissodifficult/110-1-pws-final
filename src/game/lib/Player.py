@@ -30,6 +30,7 @@ class Player:
 
         # Tech ability
         self.double_table = False
+        self.reverse_visit_kitchen = False
         self.extra_income = 0
         self.extra_stand_fee = 0
         self.stand_fee_discount = 0

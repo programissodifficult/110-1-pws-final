@@ -27,6 +27,7 @@ class FoodStand(Grid):
         self.level = 0
         self.price_level = price_level
         self.owner_id = None
+
     @property
     def prices(self):
         return stand_prices[self.price_level]
@@ -80,31 +81,34 @@ class EffectGrid(Grid):
 
     def trigger(self, triggerer):
         self.effect_handler[self.effect_type](triggerer)
+    
+    def confirm_effect(self, msg):
+        confirm('效果格', f'[{self.name}] {msg}')
 
     def trigger_fee(self, triggerer):
         for p in self.game.players:
             if p != triggerer:
                 self.game.player_transfer_money(triggerer.id, p.id, 200)
-        confirm('效果格', f'向所有玩家收取 200 元')
+        self.confirm_effect(f'向所有玩家收取 200 元')
 
     def trigger_switch(self, triggerer):
         other = random.choice([p for p in self.game.players if p != triggerer])
         self.game.switch_position(other.id, triggerer.id)
-        confirm('效果格', f'隨機和一位玩家交換位置：\n  {triggerer.name} 和 {other.name} 交換位置了!')
+        self.confirm_effect(f'隨機和一位玩家交換位置：\n  {triggerer.name} 和 {other.name} 交換位置了!')
 
     def trigger_rest(self, triggerer):
         other = random.choice([p for p in self.game.players if p != triggerer])
         other.idle_action += 1
-        confirm('效果格', f'隨機一位玩家休息一回合：\n  {other.name} 休息一回合')
+        self.confirm_effect(f'隨機一位玩家休息一回合：\n  {other.name} 休息一回合')
 
     def trigger_buy(self, triggerer):
-        confirm('效果格', f'可以隨機購買一個攤位')
+        self.confirm_effect(f'可以隨機購買一個攤位')
         unclaimed_stands = [grid for grid in self.game.grids if (grid.type == 'FoodStand' and grid.owner_id == None)]
         if len(unclaimed_stands) > 0:
             stand = random.choice(unclaimed_stands)
             self.game.ask_for_buy_stand(triggerer.id, stand.id)
-        else: 
-            confirm('效果格', f'已經沒有無人的攤位了')
+        else:
+            self.confirm_effect(f'已經沒有無人的攤位了')
 
 
 class MainKitchen(Grid):
@@ -122,5 +126,9 @@ class MainKitchen(Grid):
             return
 
         if triggerer.id != self.owner.id:
-            self.game.player_transfer_money(self.owner.id, triggerer.id, 200)
-            confirm("參觀中央廚房", f"{triggerer.name} 拜訪 {self.owner.name} 的中央廚房，支付參觀費 200 元")
+            if triggerer.reverse_visit_kitchen:
+                confirm("參觀中央廚房", f"{triggerer.name} 拜訪 {self.owner.name} 的中央廚房幫助宣傳，{self.owner.name} 支付宣傳費 200 元(技術卡效果)")
+                self.game.player_transfer_money(triggerer.id, self.owner.id, 200)
+            else:
+                confirm("參觀中央廚房", f"{triggerer.name} 拜訪 {self.owner.name} 的中央廚房，支付參觀費 200 元")
+                self.game.player_transfer_money(self.owner.id, triggerer.id, 200)

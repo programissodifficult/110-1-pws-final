@@ -57,6 +57,13 @@ class ExtraIncomeTech(Tech):
     def trigger(self, inventor):
         inventor.extra_income += self.amount
 
+class ReverseVisitKitchenTech(Tech):
+    """停留他人廚房可以反過來收錢
+
+    For card id: 6
+    """
+    def trigger(self, inventor):
+        inventor.reverse_visit_kitchen = True
 
 class ExtraStandFeeTech(Tech):
     """攤位多收錢
