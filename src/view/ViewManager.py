@@ -12,6 +12,7 @@ class ViewManager():
         self.scene = None
 
         flags = pygame.RESIZABLE
+        pygame.display.set_caption('美食大主廚')
         self.screen = pygame.display.set_mode(ScreenSize, flags)
 
     def add_scene(self, scene):
