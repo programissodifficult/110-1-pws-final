@@ -7,6 +7,3 @@ TechInventPrice = 4000
 MapSize = 36
 BoardGridWidth = 10
 StandMaxLevel = 3
-CharacterNames = ["丁丁", "小波", "迪西", "拉拉"]
-CharacterColors = [pygame.Color('blue'), pygame.Color('red'), pygame.Color('green'), pygame.Color('yellow')]
-CharacterColorsLight = [pygame.Color('lightblue'), pygame.Color('pink'), pygame.Color('lightgreen'), pygame.Color('lightgoldenrodyellow')]

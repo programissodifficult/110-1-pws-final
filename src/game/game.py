@@ -8,7 +8,7 @@ from .lib.EventImpl import make_event_cards
 from .lib.TechImpl import make_tech_cards
 from .lib.Grid import *
 from .lib.Player import Player
-
+from .lib.Character import characters
 
 class Game:
     def __init__(self):
@@ -40,10 +40,10 @@ class Game:
             grid.init()
 
     def init_players(self, player_amount):
-        characters = [0, 1, 2, 3]
-        random.shuffle(characters)
-        characters = characters[:player_amount]
-        self.players = [Player(index, char_id) for (index, char_id) in enumerate(characters)]
+        char_ids = list(range(len(characters)))
+        random.shuffle(char_ids)
+        char_ids = char_ids[:player_amount]
+        self.players = [Player(index, char_id) for (index, char_id) in enumerate(char_ids)]
 
         self.players_by_char = [None] * 4
         for player in self.players:

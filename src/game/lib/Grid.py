@@ -1,6 +1,5 @@
 import random
 from util.Dialog import yesno, confirm
-from ..CONST import CharacterNames
 from .GridId import GridId
 from .StandPrice import stand_prices
 
@@ -74,7 +73,19 @@ class EventGrid(Grid):
     def trigger(self, triggerer):
         card = self.game.draw_event_card()
         confirm("經營卡", f"{card.event_description}：\n{card.effect_description}")
+        for chance in triggerer.redraw_chance:
+            result = yesno('重抽經營卡', f'[{chance}] 是否重抽經營卡?')
+            if result:
+                card = self.game.draw_event_card()
+                confirm("經營卡", f"{card.event_description}：\n{card.effect_description}")
+            else:
+                break
+
         card.trigger(triggerer)
+        
+        if triggerer.event_bonus:
+            confirm('主廚能力', f'[主廚能力] 每次抽經營卡時可以獲得 {triggerer.event_bonus} 元')
+            triggerer.alter_money(triggerer.event_bonus)
 
 
 class EffectGrid(Grid):

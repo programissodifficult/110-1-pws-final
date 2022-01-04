@@ -65,6 +65,19 @@ class ReverseVisitKitchenTech(Tech):
     def trigger(self, inventor):
         inventor.reverse_visit_kitchen = True
 
+class RedrawChanceTech(Tech):
+    """可選擇重抽經營卡
+
+    For card id: 8
+    """
+
+    def init(self, reason):
+        self.reason = reason
+
+    def trigger(self, inventor):
+        inventor.redraw_chance.append(self.reason)
+
+
 class ExtraStandFeeTech(Tech):
     """攤位多收錢
 

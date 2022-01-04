@@ -2,6 +2,7 @@ from os import path
 
 from game.game import game
 from game.CONST import *
+from game.lib.Character import characters
 
 from ...CONST import *
 from ...componentLib.ComponentBase import ComponentBase
@@ -58,7 +59,7 @@ class MainKitchenGrid(Grid):
         super().init(grid)
         (x, y) = self.grid_padding
         self.children.create_component('Text', '中央廚房', 'Small', center=(x + BoxSize / 2, y + BoxSize * 1 / 2))
-        self.children.create_component('Text', CharacterNames[self.grid.character_id], 'Small', center=(x + BoxSize / 2, y + BoxSize * 3 / 4))
+        self.children.create_component('Text', characters[self.grid.character_id].name, 'Small', center=(x + BoxSize / 2, y + BoxSize * 3 / 4))
 
     @property
     def player(self):

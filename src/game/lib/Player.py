@@ -1,23 +1,24 @@
 from util.Dialog import confirm, yesno
 from ..CONST import *
 from .GridId import GridId
+from .Character import characters
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from game.game import Game
-
-player_id = 0
 
 
 class Player:
     game = None  # type: Game
 
     def __init__(self, player_id, char_id):
-        self.id = player_id
+        character = characters[char_id]
         self.character_id = char_id
-        self.name = CharacterNames[char_id]
-        self.color = CharacterColors[char_id]
-        self.color_light = CharacterColorsLight[char_id]
+        self.name = character.name
+        self.color = character.color
+        self.color_light = character.color_light
+
+        self.id = player_id
         self.home_position = GridId(HomePosition[char_id])
         self.position = GridId(HomePosition[char_id])
         self.money = InitialMoney
@@ -37,6 +38,10 @@ class Player:
         self.stand_fee_discount = 0
         self.same_spot_fee = 0
         self.build_discount = 0
+        self.event_bonus = 0
+        self.redraw_chance = []
+
+        character.init_ability(self)
 
     def init(self):
         self.game.players_by_char[self.character_id] = self
@@ -44,6 +49,10 @@ class Player:
     @property
     def own_stands(self):
         return [grid for grid in self.game.grids if (grid.type == 'FoodStand' and grid.owner_id == self.id)]
+
+    @property
+    def character(self):
+        return characters[self.character_id]
 
     def alter_money(self, amount):
         self.money += amount
@@ -90,6 +99,7 @@ class Player:
         tech_info = ''.join([f'  - [{tech.score}分] {tech.ability_description}\n' for tech in self.tech_invented])
         s = f"""玩家：{self.name}
 
+角色能力：{self.character.ability_description}
 現金：{self.money}
 攤位：{', '.join(stand_names)}
 技術：
