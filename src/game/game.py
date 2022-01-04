@@ -140,7 +140,7 @@ class Game:
             confirm("建設攤位", f"{stand.name}的桌子數量已達上限，無法再建造更多桌子了")
             return
 
-        if player.money >= price:
+        if player.money >= price or player.free_table:
             result = yesno("建設攤位", f"是否以 {price} 元在{stand.name}建設一張桌子")
             if result:
                 self.build_stand(player_id, stand_id)
@@ -205,14 +205,18 @@ class Game:
         price = self.get_stand_build_price(player_id, grid_id)
 
         # sanity check
-        if player.money < price:
+        if player.money < price and not player.free_table:
             print(Exception(f'[Game.build_stand] Player {player.name} cannot afford building stand {stand.name}'))
 
         if stand.level == StandMaxLevel:
             print(Exception(f'[Game.build_stand] Stand {stand.name} already at max level'))
 
         stand.level += 1
-        player.alter_money(-price)
+
+        if player.free_table:
+            player.free_table -= 1
+        else:
+            player.alter_money(-price)
 
     def invent_tech(self, player_id):
         player = self.players[player_id]

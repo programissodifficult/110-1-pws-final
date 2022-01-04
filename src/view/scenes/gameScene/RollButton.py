@@ -6,7 +6,7 @@ from util.Dialog import confirm
 from ...componentLib.ComponentBase import ComponentBase
 from ...CONST import *
 
-l = [6] * 4 + [9] * 100
+l = [6] * 4 + [1] * 100
 # l = [1, 2] + [36] * 100
 # l = [3] * 4 + [9] * 100
 # l = [9] * 100

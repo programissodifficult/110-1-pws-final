@@ -32,7 +32,7 @@ class StopActionEvent(Event):
 
 
 class AddTableEvent(Event):
-    """觸發玩家隨機在自己的攤位免費添加一張桌子
+    """觸發玩家隨機在自己的攤位添加一張桌子
 
     For card id: 2
     """
@@ -40,8 +40,8 @@ class AddTableEvent(Event):
     def trigger(self, triggerer):
         available_stands = [grid for grid in triggerer.own_stands if grid.level < 3]
         if len(available_stands):
-            target_grid = random.choice(available_stands)
-            target_grid.upgrade()
+            stand = random.choice(available_stands)
+            self.game.ask_for_build_table(triggerer.id, stand.id)
         else:
             confirm("升級攤位", "你沒有任何可以升級的攤位QQ")
 
