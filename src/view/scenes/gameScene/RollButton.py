@@ -10,8 +10,9 @@ from ...CONST import *
 # l = [1, 2] + [36] * 100
 # l = [3] * 4 + [9] * 100
 # l = [9] * 100
+l = [1] * 100
 def get_roll_number():
-    # return l.pop(0)
+    return l.pop(0)
     return random.randint(1, 6) + random.randint(1, 6)
 
 
@@ -19,7 +20,7 @@ class RollButton(ComponentBase):
     def init(self):
         (width, height) = ScreenSize
         score_board_width = BoxSize * BoardGridWidth
-        self.button = self.children.create_component('Button', 'Go', (score_board_width / 2, height / 2), 'Normal', pygame.Color('black'), self.roll)
+        self.button = self.children.create_component('Button', 'Go', (score_board_width / 2, height / 2), self.roll)
 
     def roll(self):
         player = game.current_player

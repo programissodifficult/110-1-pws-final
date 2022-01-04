@@ -1,5 +1,7 @@
 import pygame
 
+from .scenes.util.cursor import use_default_cursor
+
 from .CONST import ScreenSize
 
 
@@ -30,5 +32,9 @@ class ViewManager():
     def tick(self):
         events = pygame.event.get()
         if len(events):
+            for evt in events:
+                if evt.type == pygame.MOUSEMOTION:
+                    use_default_cursor()
+                    break
             self.scene.handle_events(events)
         self.rerender()

@@ -32,5 +32,5 @@ class GameScene(Scene):
 
         for player in game.players:
             self.children.create_component('ScoreBoard', player.id)
-        
+
         self.children.create_component('RollButton')

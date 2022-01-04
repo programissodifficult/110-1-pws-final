@@ -17,6 +17,7 @@ class Player:
         self.character_id = char_id
         self.name = CharacterNames[char_id]
         self.color = CharacterColors[char_id]
+        self.color_light = CharacterColorsLight[char_id]
         self.home_position = GridId(HomePosition[char_id])
         self.position = GridId(HomePosition[char_id])
         self.money = InitialMoney
@@ -66,3 +67,14 @@ class Player:
 
     def next_player(self):
         return self.game.players[(self.id + 1) % len(self.game.players)]
+
+    def show_info(self):
+        stands = self.own_stands
+        stand_names = [stand.name for stand in self.own_stands] if len(stands) else ['無']
+        s = f"""玩家：{self.name}
+
+現金：{self.money}
+攤位：{', '.join(stand_names)}
+技術：{self.tech_invented}
+        """
+        confirm('玩家資訊', s)

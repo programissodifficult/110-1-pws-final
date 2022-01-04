@@ -4,11 +4,15 @@ from ...CONST import DefaultTextColor
 
 pygame.font.init()
 
+FontFilePath = './assets/microsoftjhenghei.ttf'
+# FontFilePath = './assets/TaipeiSans.ttf'
+
 fonts = {
-    'Title': pygame.font.SysFont('microsoftjhenghei', 56),
-    'Normal': pygame.font.SysFont('microsoftjhenghei', 32),
-    'Small': pygame.font.SysFont('microsoftjhenghei', 14),
-    'XSmall': pygame.font.SysFont('microsoftjhenghei', 8),
+    'Title': pygame.font.Font(FontFilePath, 56),
+    'Normal': pygame.font.Font(FontFilePath, 32),
+    'Normal': pygame.font.Font(FontFilePath, 32),
+    'Small': pygame.font.Font(FontFilePath, 14),
+    'XSmall': pygame.font.Font(FontFilePath, 8),
 }
 
 
