@@ -1,6 +1,6 @@
 import pygame
 
-from .scenes.util.cursor import use_default_cursor
+from .util.cursor import use_default_cursor
 
 from .CONST import ScreenSize
 

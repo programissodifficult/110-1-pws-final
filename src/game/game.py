@@ -216,7 +216,8 @@ class Game:
         player.alter_money(-player.get_tech_invent_price())
         confirm("研發技術卡", f"{card.tech_description}：\n{card.ability_description}")
         card.trigger(player)
-        player.tech_invented += 1
+        player.tech_invented.append(card)
+
 
     def next_turn(self):
         game.turn = (game.turn + 1) % len(self.players)

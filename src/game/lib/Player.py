@@ -24,7 +24,7 @@ class Player:
         self.idle_action = 0
         self.idle_kitchen = 0
         self.free_table = 0
-        self.tech_invented = 0
+        self.tech_invented = []
 
         # character ability
         self.invent_discount = 0
@@ -71,10 +71,12 @@ class Player:
     def show_info(self):
         stands = self.own_stands
         stand_names = [stand.name for stand in self.own_stands] if len(stands) else ['無']
+        tech_info = ''.join([f'  - {tech.ability_description}\n' for tech in self.tech_invented])
         s = f"""玩家：{self.name}
 
 現金：{self.money}
 攤位：{', '.join(stand_names)}
-技術：{self.tech_invented}
+技術：
+{tech_info}
         """
         confirm('玩家資訊', s)

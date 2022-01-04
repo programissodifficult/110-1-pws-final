@@ -1,7 +1,7 @@
 import pygame
 
 from ...componentLib.ComponentBase import ComponentBase
-from ..util.cursor import use_default_cursor, use_hand_cursor
+from ...util.cursor import use_default_cursor, use_hand_cursor
 
 
 class Button(ComponentBase):

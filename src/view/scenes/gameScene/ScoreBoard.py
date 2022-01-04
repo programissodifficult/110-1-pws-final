@@ -41,7 +41,7 @@ class ScoreBoard(ComponentBase):
 
         # player own technology
         info_mid_y_padding = top_padding + 160
-        self.text_own_tech = self.children.create_component('Text', str(self.player.tech_invented),
+        self.text_own_tech = self.children.create_component('Text', str(len(self.player.tech_invented)),
                                                             'Normal', midleft=(info_left_padding, info_mid_y_padding))
         img_center_y = top_padding + 160
         self.children.create_component('Image', path.join('assets/icons24/lamp.png'), center=(img_center_x, img_center_y))
@@ -61,4 +61,4 @@ class ScoreBoard(ComponentBase):
     def update(self):
         self.text_money.content = str(self.player.money)
         self.text_own_stand.content = str(len(self.player.own_stands))
-        self.text_own_tech.content = str(self.player.tech_invented)
+        self.text_own_tech.content = str(len(self.player.tech_invented))
