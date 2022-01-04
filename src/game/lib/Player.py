@@ -71,10 +71,23 @@ class Player:
     def next_player(self):
         return self.game.players[(self.id + 1) % len(self.game.players)]
 
+    def get_score_total(self):
+        return self.get_score()["total"]
+
+    def get_score(self):
+        scores = {
+            "money": self.money // 1000,
+            "stand": len(self.own_stands),
+            "table": sum([stand.level for stand in self.own_stands]),
+            "tech": sum([tech.score for tech in self.tech_invented]),
+        }
+        scores["total"] = sum(scores.values())
+        return scores
+
     def show_info(self):
         stands = self.own_stands
         stand_names = [stand.name for stand in self.own_stands] if len(stands) else ['無']
-        tech_info = ''.join([f'  - {tech.ability_description}\n' for tech in self.tech_invented])
+        tech_info = ''.join([f'  - [{tech.score}分] {tech.ability_description}\n' for tech in self.tech_invented])
         s = f"""玩家：{self.name}
 
 現金：{self.money}

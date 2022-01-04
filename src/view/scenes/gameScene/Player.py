@@ -1,4 +1,5 @@
 from game.game import game
+from util.Dialog import confirm
 
 from ...componentLib.ComponentBase import ComponentBase
 from ..basicComponents.Circle import Circle
@@ -27,6 +28,11 @@ class Player(ComponentBase):
             timer.tick(20)
             if self.player.position == self.player.home_position:
                 game.pass_kitchen(self.player_id)
+
+                if game.is_end():
+                    confirm("遊戲結束", "所有技術卡被研發完成，遊戲結束!")
+                    self.manager.to_scene('score')
+                    return
 
     def update(self):
         self.token.center = self.get_center()

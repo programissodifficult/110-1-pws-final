@@ -60,5 +60,5 @@ class ScoreBoard(ComponentBase):
 
     def update(self):
         self.text_money.content = str(self.player.money)
-        self.text_own_stand.content = str(len(self.player.own_stands))
-        self.text_own_tech.content = str(len(self.player.tech_invented))
+        self.text_own_stand.content = f'{len(self.player.own_stands)}/{sum([stand.level for stand in self.player.own_stands])}'
+        self.text_own_tech.content = f'{len(self.player.tech_invented)}'

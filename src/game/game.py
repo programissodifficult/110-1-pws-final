@@ -93,6 +93,9 @@ class Game:
         self.tech_pointer += 1
         return card
 
+    def is_end(self):
+        return self.tech_pointer >= len(self.tech_cards)
+
     def player_transfer_money(self, receiver_id, giver_id, amount):
         receiver = self.players[receiver_id]
         giver = self.players[giver_id]
@@ -215,10 +218,9 @@ class Game:
         player = self.players[player_id]
         card = self.draw_tech_card()
         player.alter_money(-player.get_tech_invent_price())
-        confirm("研發技術卡", f"{card.tech_description}：\n{card.ability_description}")
+        confirm("研發技術卡", f"[{card.score}分] {card.tech_description}：\n{card.ability_description}")
         card.trigger(player)
         player.tech_invented.append(card)
-
 
     def next_turn(self):
         game.turn = (game.turn + 1) % len(self.players)

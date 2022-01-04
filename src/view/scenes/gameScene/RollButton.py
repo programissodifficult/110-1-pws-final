@@ -39,6 +39,9 @@ class RollButton(ComponentBase):
         self.manager.rerender()
         self.manager.scene.players[game.turn].step(step)
 
+        if game.is_end():
+            return
+
         # trigger grid effect
         player.get_grid().trigger(player)
 
