@@ -1,5 +1,6 @@
 import random
 from util.Dialog import yesno, confirm
+from .Character import characters
 from .GridId import GridId
 from .StandPrice import stand_prices
 
@@ -143,7 +144,7 @@ class MainKitchen(Grid):
 
     def trigger(self, triggerer):
         if self.owner == None:
-            confirm('參觀中央廚房', f"這裡是{CharacterNames[self.character_id]}的中央廚房，不過好像沒有人在")
+            confirm('參觀中央廚房', f"這裡是{characters[self.character_id].name}的中央廚房，不過好像沒有人在")
             return
 
         if triggerer.id != self.owner.id:

@@ -59,7 +59,7 @@ class Player:
         self.money = max(self.money, 0)
 
     def distance_to(self, id):
-        MaxDistance = BoardGridWidth * 2
+        MaxDistance = MapSize // 2
         return MaxDistance - abs(MaxDistance - abs(self.position.id - id))
 
     def step(self, steps):

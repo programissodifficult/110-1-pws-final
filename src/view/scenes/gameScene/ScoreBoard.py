@@ -9,20 +9,24 @@ from ...componentLib.ComponentBase import ComponentBase
 class ScoreBoard(ComponentBase):
     def init(self, player_id):
         self.id = player_id
-        score_board_height = DefaultScreenSize[1] / 4
         left_padding = BoxSize * BoardGridWidth
-        top_padding = score_board_height * self.id
+        width = DefaultScreenSize[0] - left_padding
+        height = DefaultScreenSize[1] / 4
+        top_padding = height * self.id
 
-        # border
+        # background
         border_left = left_padding
         border_top = top_padding
-        border_width = DefaultScreenSize[0] - left_padding
-        self.children.create_component('Rectangle', border_width, score_board_height, border_left, border_top)
+        self.background = self.children.create_component('Rectangle', width, height, border_left, border_top, border_width=0, color=self.player.color_light)
+        self.background.disabled = True
+
+        # border
+        self.children.create_component('Rectangle', width, height, border_left, border_top)
 
         # player name
         name_left_padding = left_padding + 20
         name_mid_y_padding = top_padding + 30
-        self.text_name = self.children.create_component('Text', str(self.player.name), 'Normal', midleft=(name_left_padding, name_mid_y_padding))
+        self.text_name = self.children.create_component('Text', self.player.name, 'Normal', midleft=(name_left_padding, name_mid_y_padding))
 
         # player money
         info_left_padding = left_padding + 50
@@ -59,6 +63,7 @@ class ScoreBoard(ComponentBase):
         return game.players[self.id]
 
     def update(self):
+        self.background.disabled = game.current_player != self.player
         self.text_money.content = str(self.player.money)
         self.text_own_stand.content = f'{len(self.player.own_stands)}/{sum([stand.level for stand in self.player.own_stands])}'
         self.text_own_tech.content = f'{len(self.player.tech_invented)}'

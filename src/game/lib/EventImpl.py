@@ -3,11 +3,11 @@ from .Event import *
 event_cards = [
     StopActionEvent("衛生局稽查不合格，暫時停業觀察", "停止行動一回合"),
     AddTableEvent("獲得米其林美食報導，遊客蜂擁而至", "可在自已的攤位添加一張桌子"),
-    EveryOneAlterMoneyIfOwnEvent("麵粉原物料上漲", "麵食類攤位的老闆損失 450 元（當歸麵線、切仔麵、牛肉麵、鱔魚麵）", [4, 8, 22, 31], 450),
+    EveryOneAlterMoneyIfOwnEvent("麵粉原物料上漲", "麵食類攤位的老闆損失 450 元（當歸麵線、切仔麵、牛肉麵、鱔魚麵）", [4, 8, 22, 31], -450),
     IdleKitchenEvent("被發現販賣隔夜商品，評價下滑", "下次經過自己的中央廚房時不得領取金錢或研發技術"),
     AlterMoneyNearestEvent("台北市舉行一年一度牛肉麵大賽", "最靠近牛肉麵攤位的玩家獲利 1200 元", 4, 1200),
     AlterMoneyNearestEvent("國外觀光客指定要喝珍珠奶茶", "最靠近珍珠奶茶的玩家獲利 750 元", 1, 750),
-    AlterMoneyNearestEvent("毒奶風暴影響，人心惶恐", "最靠近木瓜牛奶的玩家損失 400 元", 16, 750),
+    AlterMoneyNearestEvent("毒奶風暴影響，人心惶恐", "最靠近木瓜牛奶的玩家損失 400 元", 16, -400),
     AlterMoneyEvent("低價促銷，生意大好", "獲利 1000 元", 1000),
     TransferMoneyToNextEvent("工讀生缺班，人手不足", "付 500 元給你的下一位玩家請他代班", 500),
     RandomAlterMoneyEvent("衝刺營業額，在人行道上擺攤", "隨機被警察抓罰 750 元或獲得額外收入 750 元", 750),

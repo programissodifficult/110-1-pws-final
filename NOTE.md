@@ -4,6 +4,9 @@
 
 ## TODO
 
+- [x] 玩家回合指示
+- [ ] 隨機移除桌子confirm
+- [ ] build second table confirm if no money
 - [x] 滑鼠滑到按鈕顯示手圖案
 - [x] 走到無人的中央廚房要提示
 - [x] 觸發遊戲結束

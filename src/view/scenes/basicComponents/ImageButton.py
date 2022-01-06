@@ -20,6 +20,18 @@ class ImageButton(ComponentBase):
         self.cb = cb
         self.cbargs = cbargs
 
+    def trigger(self):
+        if self.onclick_img:
+            self.img.disabled = True
+            self.onclick_img.disabled = False
+            self.manager.rerender()
+            sleep(0.1)
+            self.img.disabled = False
+            self.onclick_img.disabled = True
+            self.manager.rerender()
+        use_default_cursor()
+        self.cb(*self.cbargs)
+
     def handle_events(self, events):
         x, y = pygame.mouse.get_pos()
 
@@ -30,13 +42,4 @@ class ImageButton(ComponentBase):
 
             if evt.type == pygame.MOUSEBUTTONDOWN:
                 if self.rect.collidepoint(x, y):
-                    if self.onclick_img:
-                        self.img.disabled = True
-                        self.onclick_img.disabled = False
-                        self.manager.rerender()
-                        sleep(0.1)
-                        self.img.disabled = False
-                        self.onclick_img.disabled = True
-                        self.manager.rerender()
-                    use_default_cursor()
-                    self.cb(*self.cbargs)
+                    self.trigger()

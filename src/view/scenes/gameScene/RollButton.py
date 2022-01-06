@@ -6,13 +6,14 @@ from util.Dialog import confirm
 from ...componentLib.ComponentBase import ComponentBase
 from ...CONST import *
 
-# l = [6] * 4 + [1] * 100
+l = [6] * 4 + [1] * 100
 # l = [1, 2] + [36] * 100
 # l = [3] * 4 + [9] * 100
 # l = [9] * 100
 # l = [1] * 100
 # l = [36] * 100
 # l = [random.choice([9, 18, 27, 36]) for i in range(100)]
+# l = [4, 6] + [9] * 100
 def get_roll_number():
     # return l.pop(0)
     return random.randint(1, 6) + random.randint(1, 6)
@@ -63,9 +64,17 @@ class RollButton(ComponentBase):
         self.next_turn()
 
     def next_turn(self):
-        self.text.set_content('')
+        # self.text.set_content('')
         game.next_turn()
         if game.current_player.idle_action > 0:
             game.current_player.idle_action -= 1
             confirm("停止行動", f"{game.current_player.name} 暫停行動一回合...")
             self.next_turn()
+
+    def handle_events(self, events):
+        for evt in events:
+            if evt.type == pygame.KEYDOWN:
+                if evt.key == pygame.K_RETURN:
+                    self.button.trigger()
+
+        super().handle_events(events)

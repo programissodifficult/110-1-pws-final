@@ -75,12 +75,12 @@ class AlterMoneyNearestEvent(Event):
     For card id: 5, 6, 7
     """
 
-    def init(self, stand_id, amount):
-        self.stand_id = stand_id
+    def init(self, grid_id, amount):
+        self.grid_id = grid_id
         self.amount = amount
 
     def trigger(self, triggerer):
-        nearest_player = min(self.game.players, key=lambda p: (p.distance_to(self.stand_id), p.position.get()))
+        nearest_player = min(self.game.players, key=lambda p: (p.distance_to(self.grid_id), p.position.get()))
         nearest_player.alter_money(self.amount)
 
 
@@ -91,13 +91,15 @@ class AlterMoneyIfOwnEvent(Event):
     """
 
     def init(self, stand_id, amount_if_own, amount_otherwise):
-        self.stand_id = stand_id
+        self.stand_ids = stand_id
         self.amount_if_own = amount_if_own
         self.amount_otherwise = amount_otherwise
 
     def trigger(self, triggerer):
-        if self.stand_id in [stand.id for stand in triggerer.own_stands]:
-            triggerer.alter_money(self.amount_if_own)
+        for id in self.stand_ids:
+            if id in [stand.id for stand in triggerer.own_stands]:
+                triggerer.alter_money(self.amount_if_own)
+                break
         else:
             triggerer.alter_money(self.amount_otherwise)
 
@@ -115,7 +117,7 @@ class EveryOneAlterMoneyIfOwnEvent(Event):
     def trigger(self, triggerer):
         for player in self.game.players:
             if any(stand.id in self.stand_ids for stand in player.own_stands):
-                player.alter_money(-self.amount)
+                player.alter_money(self.amount)
 
 
 class RandomAlterMoneyEvent(Event):

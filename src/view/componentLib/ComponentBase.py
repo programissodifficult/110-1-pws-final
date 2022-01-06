@@ -21,13 +21,13 @@ class ComponentBase:
     def update(self):
         for child in self.children:
             child.update()
-        self.debug(type(self).__name__, 'updated')
+        self.debug('updated')
 
     def render(self):
         for child in self.children:
             if not child.disabled:
                 child.render()
-        self.debug(type(self).__name__, 'rendered')
+        self.debug('rendered')
 
     def handle_events(self, events):
         for child in self.children:
@@ -35,4 +35,4 @@ class ComponentBase:
 
     def debug(self, *args, **kwargs):
         if Verbose:
-            print(*args, **kwargs)
+            print(type(self).__name__, *args, **kwargs)

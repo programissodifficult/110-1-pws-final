@@ -43,6 +43,7 @@ class Game:
         char_ids = list(range(len(characters)))
         random.shuffle(char_ids)
         char_ids = char_ids[:player_amount]
+        # char_ids = [1, 2]
         self.players = [Player(index, char_id) for (index, char_id) in enumerate(char_ids)]
 
         self.players_by_char = [None] * 4
@@ -136,7 +137,7 @@ class Game:
         if stand.owner_id != player_id:
             print(Exception(f'[Game.ask_for_build_table] player "{player.name}" does not own stand {stand.name}'))
 
-        if stand.level == StandMaxLevel:
+        if stand.level >= StandMaxLevel:
             confirm("建設攤位", f"{stand.name}的桌子數量已達上限，無法再建造更多桌子了")
             return
 
@@ -146,16 +147,17 @@ class Game:
                 self.build_stand(player_id, stand_id)
 
                 # handle double table tech
-                if player.double_table and player.money >= price:
-                    if stand.level < StandMaxLevel:
-                        confirm("建設攤位", f"[技術卡效果] {stand.name}的桌子數量已達上限，無法再建造更多桌子了")
+                if player.double_table:
+                    if player.money < price:
+                        confirm("建設攤位", f"[技術卡效果] 第二章桌子：\n 你的錢好像不太夠，你得要有 {price} 元才能在{stand.name}建設一張桌子")
+                    elif stand.level >= StandMaxLevel:
+                        confirm("建設攤位", f"[技術卡效果] 第二章桌子：\n {stand.name}的桌子數量已達上限，無法再建造更多桌子了")
                     else:
-                        result = yesno("建設攤位", f"[技術卡效果] 是否要以 {price} 元在{stand.name}再建設一張桌子")
+                        result = yesno("建設攤位", f"[技術卡效果] 第二章桌子：\n 是否要以 {price} 元在{stand.name}再建設一張桌子")
                         if result:
                             self.build_stand(player_id, stand_id)
-
         else:
-            confirm("建設攤位", f"你的錢好像不太夠，你得要有 {stand.prices.buy} 元才能在{stand.name}建設一張桌子")
+            confirm("建設攤位", f"你的錢好像不太夠，你得要有 {price} 元才能在{stand.name}建設一張桌子")
 
     def ask_for_buy_stand(self, player_id, stand_id):
         player = self.players[player_id]
