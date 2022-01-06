@@ -20,11 +20,11 @@ class GameScene(Scene):
     def init(self, player_amount):
         game.init(player_amount)
 
-        img_size = (BoxSize * 8, BoxSize * 8)
-        img_center = (BoxSize * 5, BoxSize * 5)
+        img_size = (GridSize * 8, GridSize * 8)
+        img_center = (GridSize * 5, GridSize * 5)
         self.children.create_component('Image', 'assets/background.png', resize=img_size, center=img_center)
 
-        help_button_center = (BoxSize + 60, BoxSize + 60)
+        help_button_center = (GridSize + 60, GridSize + 60)
         self.children.create_component('ImageButton', 'assets/question.png', help_button_center, help, resize=(96, 96), onclick_src='assets/question_pressed.png')
 
         for grid in game.grids:

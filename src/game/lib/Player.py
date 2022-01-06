@@ -16,7 +16,7 @@ class Player:
         self.character_id = char_id
         self.name = character.name
         self.color = character.color
-        self.color_light = character.color_light
+        self.color_secondary = character.color_secondary
 
         self.id = player_id
         self.home_position = GridId(HomePosition[char_id])

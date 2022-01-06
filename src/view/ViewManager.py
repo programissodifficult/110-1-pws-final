@@ -2,7 +2,7 @@ import pygame
 
 from .util.cursor import use_default_cursor
 
-from .CONST import DefaultScreenSize
+from .CONST import BackgroundColor, DefaultScreenSize
 
 
 class ViewManager():
@@ -26,7 +26,7 @@ class ViewManager():
         self.scene = scene
 
     def rerender(self):
-        self.screen.fill(pygame.Color('white'))
+        self.screen.fill(BackgroundColor)
         self.scene.update()
         self.scene.render()
         pygame.display.flip()

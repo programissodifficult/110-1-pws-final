@@ -5,7 +5,7 @@ from ...CONST import DefaultTextColor
 pygame.font.init()
 
 # FontFilePath = './assets/microsoftjhenghei.ttf'
-FontFilePath = './assets/DotGothic16-Regular.ttf'
+FontFilePath = './assets/zpix.ttf'
 
 fonts = {
     'Title': pygame.font.Font(FontFilePath, 56),

@@ -4,7 +4,7 @@ from os import listdir, path
 from pathlib import Path
 
 SIZE = 24
-img_folder = 'assets/icons512'
+img_folder = 'assets/icons512W'
 out_folder = f'assets/icons{SIZE}'
 
 Path(out_folder).mkdir(exist_ok=True)

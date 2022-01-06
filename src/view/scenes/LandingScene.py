@@ -15,12 +15,6 @@ class LandingScene(Scene):
     def init(self):
         (width, height) = self.screen_size
         self.children.create_component('Image', 'assets/background.png', resize=self.screen_size, center=(width / 2, height / 2))
-        # self.children.create_component('Text', '美食大富翁', 'Title', center=(width / 2, height / 3))
-        # self.children.create_component('Text', '> 選擇玩家人數以開始遊戲 <', 'Normal', center=(width / 2, height * 1 / 2))
-        # self.children.create_component(Button('1', (width * 4 / 12, height * 2 / 3),'Normal', lambda : self.start_game(1)))
-        # self.children.create_component('Button', '2P', (width * 4 / 12, height * 1 / 2), self.start_game, 2, color=pygame.Color('white'), background_color=pygame.Color('black'))
-        # self.children.create_component('Button', '3P', (width * 6 / 12, height * 1 / 2), self.start_game, 3, color=pygame.Color('white'), background_color=pygame.Color('black'))
-        # self.children.create_component('Button', '4P', (width * 8 / 12, height * 1 / 2), self.start_game, 4, color=pygame.Color('white'), background_color=pygame.Color('black'))
         self.children.create_component('ImageButton', 'assets/2P.png', (width * 3 / 12, height * 1 / 2), self.start_game, 2, resize=(128, 128), onclick_src='assets/2P_pressed.png')
         self.children.create_component('ImageButton', 'assets/3P.png', (width * 6 / 12, height * 1 / 2), self.start_game, 3, resize=(128, 128), onclick_src='assets/3P_pressed.png')
         self.children.create_component('ImageButton', 'assets/4P.png', (width * 9 / 12, height * 1 / 2), self.start_game, 4, resize=(128, 128), onclick_src='assets/4P_pressed.png')

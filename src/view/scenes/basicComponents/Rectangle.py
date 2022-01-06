@@ -5,9 +5,11 @@ BorderWidth = 2
 
 
 class Rectangle(ComponentBase):
-    def init(self, width, height, left, top, color=pygame.Color('black'), background_color=None, border_width=BorderWidth):
+    def init(self, width, height, left, top, color=pygame.Color('black'), background_color=None, border_width=BorderWidth, inflate=None):
         self.color = color
         self.rect = pygame.Rect(left, top, width, height)
+        if inflate:
+            self.rect.inflate_ip(inflate)
         self.border_width = border_width
         self.bg_color = background_color
 

@@ -3,6 +3,7 @@ from os import path
 from game.game import game
 from game.CONST import *
 from game.lib.Character import characters
+from util.Dialog import confirm
 
 from ...util.cursor import use_default_cursor, use_hand_cursor
 from ...CONST import *
@@ -14,7 +15,10 @@ from .gridHelper import grid_coord
 class Grid(ComponentBase):
     def init(self, grid):
         self.id = grid.id
-        self.border = self.children.create_component('Rectangle', BoxSize, BoxSize, *grid_coord(self.id))
+        self.border = self.children.create_component('Rectangle', GridSize, GridSize, *grid_coord(self.id), BorderColor)
+
+    def show_info(self):
+        pass
 
     @property
     def grid(self):
@@ -24,62 +28,80 @@ class Grid(ComponentBase):
     def grid_padding(self):
         return grid_coord(self.id)
 
-
-class FoodStandGrid(Grid):
-    def init(self, grid):
-        super().init(grid)
-        (x, y) = self.grid_padding
-        self.background = self.children.create_component('Rectangle', BoxSize, BoxSize, x, y, pygame.Color('white'), border_width=0, first=True)
-        self.name_label = self.children.create_component('Text', self.grid.name, 'Small', center=(x + BoxSize / 2, y + 15))
-        # self.children.create_component('Text', str(self.grid.prices.buy), 'Small', center=(x + BoxSize / 2, y + BoxSize - 15))
-        self.children.create_component('Image', path.join(ImageFolder, f'{grid.name}.png'), center=(x + BoxSize / 2, y + BoxSize * 2 / 3), resize=(50, 50))
-        self.rect = self.background.get_rect()
-
-    def update(self):
-        self.name_label.content = self.grid.name + (f'({self.grid.level})' if self.grid.level else '')
-        if self.grid.owner != None:
-            self.background.color = self.grid.owner.color_light
-
     def handle_events(self, events):
         x, y = pygame.mouse.get_pos()
 
         for evt in events:
             if evt.type == pygame.MOUSEMOTION:
-                if self.rect.collidepoint(*pygame.mouse.get_pos()):
+                if self.border.get_rect().collidepoint(*pygame.mouse.get_pos()):
+                    self.border.color = pygame.Color('white')
                     use_hand_cursor()
+                else:
+                    self.border.color = BorderColor
 
             if evt.type == pygame.MOUSEBUTTONDOWN:
-                if self.rect.collidepoint(x, y):
+                if self.border.get_rect().collidepoint(x, y):
                     use_default_cursor()
-                    self.grid.show_info()
+                    self.show_info()
+
+        super().handle_events(events)
+
+
+class FoodStandGrid(Grid):
+    def init(self, grid):
+        super().init(grid)
+        (x, y) = self.grid_padding
+        self.inner_border = self.children.create_component('Rectangle', GridSize - 4, GridSize - 4, x + 2, y + 2, BackgroundColor)
+        self.inner_border.disabled = True
+        self.background = self.children.create_component('Rectangle', GridSize, GridSize, x, y, BackgroundColor, border_width=0, first=True)
+        self.name_label = self.children.create_component('Text', self.grid.name, 'Small', center=(x + GridSize / 2, y + 15))
+        # self.children.create_component('Text', str(self.grid.prices.buy), 'Small', center=(x + BoxSize / 2, y + BoxSize - 15))
+        self.children.create_component('Image', path.join(ImageFolder, f'{grid.name}.png'), center=(
+            x + GridSize / 2, y + GridSize * 2 / 3), resize=(50, 50))
+
+    def update(self):
+        self.name_label.content = self.grid.name + (f'({self.grid.level})' if self.grid.level else '')
+        if self.grid.owner != None:
+            self.name_label.color = self.grid.owner.color_secondary
+            self.inner_border.color = self.grid.owner.color_secondary
+            self.inner_border.disabled = False
+
+    def show_info(self):
+        self.grid.show_info()
 
 
 class EffectGrid(Grid):
     def init(self, grid):
         super().init(grid)
         (x, y) = self.grid_padding
-        self.background = self.children.create_component('Rectangle', BoxSize, BoxSize, x, y, pygame.Color('gray90'), border_width=0, first=True)
+        self.background = self.children.create_component('Rectangle', GridSize, GridSize, x, y, BackgroundColor, border_width=0, first=True)
         # self.children.create_component('Text', '效果', 'Small', center=(x + BoxSize / 2, y + BoxSize / 3))
-        self.children.create_component('Text', self.grid.name, 'Small', center=(x + BoxSize / 2, y + BoxSize  / 2))
+        self.children.create_component('Text', self.grid.name, 'Small', center=(x + GridSize / 2, y + GridSize / 2))
+
+    def show_info(self):
+        confirm('效果格', f'停留此處將觸發效果"{self.grid.name}"：\n{self.grid.effect_description}')
 
 
 class EventGrid(Grid):
     def init(self, grid):
         super().init(grid)
         (x, y) = self.grid_padding
-        self.background = self.children.create_component('Rectangle', BoxSize, BoxSize, x, y, pygame.Color('gray90'), border_width=0, first=True)
-        self.children.create_component('Text', '經營卡', 'Small', center=(x + BoxSize / 2, y + BoxSize / 2))
+        self.background = self.children.create_component('Rectangle', GridSize, GridSize, x, y, BackgroundColor, border_width=0, first=True)
+        self.children.create_component('Text', '經營卡', 'Small', center=(x + GridSize / 2, y + GridSize / 2))
+
+    def show_info(self):
+        confirm('經營卡格', '停留此處將觸發隨機事件')
 
 
 class MainKitchenGrid(Grid):
     def init(self, grid):
         super().init(grid)
         (x, y) = self.grid_padding
-        character = characters[grid.character_id]
-        self.background = self.children.create_component('Rectangle', BoxSize, BoxSize, x, y, character.color_light, border_width=0, first=True)
-        self.children.create_component('Text', '中央廚房', 'Small', center=(x + BoxSize / 2, y + BoxSize / 3))
-        self.children.create_component('Text', character.name, 'Small', center=(x + BoxSize / 2, y + BoxSize * 2 / 3))
+        self.character = characters[grid.character_id]
+        self.background = self.children.create_component('Rectangle', GridSize, GridSize, x, y, BackgroundColor, border_width=0, first=True)
+        self.children.create_component('Text', '中央廚房', 'Small', self.character.color_secondary, center=(x + GridSize / 2, y + GridSize / 3))
+        self.children.create_component('Text', self.character.name, 'Small', self.character.color_secondary,
+                                       center=(x + GridSize / 2, y + GridSize * 2 / 3))
 
-    # @property
-    # def player(self):
-    #     return game.players_by_char[self.grid.character_id]
+    def show_info(self):
+        confirm('中央廚房格', f'停留此處需支付參觀費 200 元給主廚 {self.character.name}')

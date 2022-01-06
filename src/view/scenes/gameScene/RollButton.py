@@ -22,11 +22,9 @@ def get_roll_number():
 class RollButton(ComponentBase):
     def init(self):
         (width, height) = DefaultScreenSize
-        score_board_width = BoxSize * BoardGridWidth
-        # self.button = self.children.create_component(
-        #     'Button', 'Go', (score_board_width / 2, height / 2), self.roll)
+        score_board_width = GridSize * BoardGridWidth
         self.button = self.children.create_component('ImageButton', 'assets/go.png', (score_board_width / 2, height / 2), self.roll, resize=(128, 128), onclick_src='assets/go_pressed.png')
-        self.text = self.children.create_component('Text', '', 'Title', center=(score_board_width / 2, height / 2 - 80), color=pygame.Color('white'))
+        self.text = self.children.create_component('Text', '', 'Title', center=(score_board_width / 2, height / 2 - 80))
 
     def roll(self):
         player = game.current_player

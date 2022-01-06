@@ -2,57 +2,62 @@ from os import path
 
 from game.game import game
 from game.CONST import BoardGridWidth
-from ...CONST import BoxSize, DefaultScreenSize
+from ...CONST import BorderColor, GridSize, DefaultScreenSize
 from ...componentLib.ComponentBase import ComponentBase
 
 
 class ScoreBoard(ComponentBase):
     def init(self, player_id):
         self.id = player_id
-        left_padding = BoxSize * BoardGridWidth
-        width = DefaultScreenSize[0] - left_padding
+        board_left = GridSize * BoardGridWidth
+        width = DefaultScreenSize[0] - board_left
         height = DefaultScreenSize[1] / 4
-        top_padding = height * self.id
+        board_top = height * self.id
 
-        # background
-        border_left = left_padding
-        border_top = top_padding
-        self.background = self.children.create_component('Rectangle', width, height, border_left, border_top, border_width=0, color=self.player.color_light)
-        self.background.disabled = True
+        left_padding = 20
+        left_padding2 = 170
+        top_padding = 90
+        top_padding2 = 150
+        text_padding = 35
+
+        # inner border
+        self.inner_border = self.children.create_component('Rectangle', width, height, board_left, board_top, border_width=4, color=self.player.color, inflate=(-4, -4))
+        self.inner_border.disabled = True
 
         # border
-        self.children.create_component('Rectangle', width, height, border_left, border_top)
+        self.children.create_component('Rectangle', width, height, board_left, board_top, BorderColor)
 
         # player name
-        name_left_padding = left_padding + 20
-        name_mid_y_padding = top_padding + 30
-        self.text_name = self.children.create_component('Text', self.player.name, 'Normal', midleft=(name_left_padding, name_mid_y_padding))
+        text_pos = (board_left + left_padding, board_top + 40)
+        self.text_name = self.children.create_component('Text', self.player.name, 'Normal', self.player.color, midleft=text_pos)
 
         # player money
-        info_left_padding = left_padding + 50
-        info_mid_y_padding = top_padding + 80
-        self.text_money = self.children.create_component('Text', str(self.player.money), 'Normal', midleft=(info_left_padding, info_mid_y_padding))
-        img_center_x = left_padding + 30
-        img_center_y = top_padding + 80
-        self.children.create_component('Image', path.join('assets/icons24/dollar.png'), center=(img_center_x, img_center_y))
-
-        # player own stand
-        info_mid_y_padding = top_padding + 120
-        self.text_own_stand = self.children.create_component('Text', str(
-            len(self.player.own_stands)), 'Normal', midleft=(info_left_padding, info_mid_y_padding))
-        img_center_y = top_padding + 120
-        self.children.create_component('Image', path.join('assets/icons24/stand.png'), center=(img_center_x, img_center_y))
+        img_pos = (board_left + left_padding, board_top + top_padding)
+        self.children.create_component('Image', path.join('assets/icons24/dollar.png'), midleft=img_pos)
+        text_pos = (board_left + left_padding + text_padding, board_top + top_padding)
+        self.text_money = self.children.create_component('Text', '', 'Normal', midleft=text_pos)
 
         # player own technology
-        info_mid_y_padding = top_padding + 160
-        self.text_own_tech = self.children.create_component('Text', str(len(self.player.tech_invented)),
-                                                            'Normal', midleft=(info_left_padding, info_mid_y_padding))
-        img_center_y = top_padding + 160
-        self.children.create_component('Image', path.join('assets/icons24/lamp.png'), center=(img_center_x, img_center_y))
+        img_pos = (board_left + left_padding, board_top + top_padding2)
+        self.children.create_component('Image', path.join('assets/icons24/lamp.png'), midleft=img_pos)
+        text_pos = (board_left + left_padding + text_padding, board_top + top_padding2)
+        self.text_own_tech = self.children.create_component('Text', '', 'Normal', midleft=text_pos)
+
+        # player own stand
+        img_pos = (board_left + left_padding2, board_top + top_padding)
+        self.children.create_component('Image', path.join('assets/icons24/stand.png'), midleft=img_pos)
+        text_pos = (board_left + left_padding2 + text_padding, board_top + top_padding)
+        self.text_own_stand = self.children.create_component('Text', '', 'Normal', midleft=text_pos)
+
+        # player own table
+        img_pos = (board_left + left_padding2, board_top + top_padding2)
+        self.children.create_component('Image', path.join('assets/icons24/table.png'), midleft=img_pos)
+        text_pos = (board_left + left_padding2 + text_padding, board_top + top_padding2)
+        self.text_own_table = self.children.create_component('Text', '', 'Normal', midleft=text_pos)
 
         # player show info button
-        btn_center_x = DefaultScreenSize[0] - 30
-        btn_center_y = top_padding + 30
+        btn_center_x = DefaultScreenSize[0] - 45
+        btn_center_y = board_top + 45
         self.children.create_component('ImageButton', 'assets/icons24/info.png', (btn_center_x, btn_center_y), self.show_info)
 
     def show_info(self):
@@ -63,7 +68,8 @@ class ScoreBoard(ComponentBase):
         return game.players[self.id]
 
     def update(self):
-        self.background.disabled = game.current_player != self.player
-        self.text_money.content = str(self.player.money)
-        self.text_own_stand.content = f'{len(self.player.own_stands)}/{sum([stand.level for stand in self.player.own_stands])}'
-        self.text_own_tech.content = f'{len(self.player.tech_invented)}'
+        self.inner_border.disabled = game.current_player != self.player
+        self.text_money.set_content(self.player.money)
+        self.text_own_stand.set_content(len(self.player.own_stands))
+        self.text_own_table.set_content(sum([stand.level for stand in self.player.own_stands]))
+        self.text_own_tech.set_content(len(self.player.tech_invented))
