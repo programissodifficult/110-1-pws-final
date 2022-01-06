@@ -10,3 +10,4 @@ class Scene(ComponentBase):
         super().__init__()
         self.name = name
         self.background_color = background_color
+        self.scene = self

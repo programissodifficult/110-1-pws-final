@@ -10,6 +10,7 @@ class ComponentList():
     def create_component(self, name, *args, first=False, **kwargs):
         comp = self.owner.manager.ComponentRegistry[name]()
         comp.manager = self.owner.manager
+        comp.scene = self.owner.scene
         comp.init(*args, **kwargs)
         comp.update()
         self._add_component(comp, first)

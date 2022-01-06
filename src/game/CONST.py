@@ -1,5 +1,3 @@
-import pygame
-
 InitialMoney = 1000
 HomePosition = [0, 9, 18, 27]
 BaseHomeIncome = 1000
