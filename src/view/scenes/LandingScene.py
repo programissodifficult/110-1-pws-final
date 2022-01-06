@@ -21,9 +21,9 @@ class LandingScene(Scene):
         # self.children.create_component('Button', '2P', (width * 4 / 12, height * 1 / 2), self.start_game, 2, color=pygame.Color('white'), background_color=pygame.Color('black'))
         # self.children.create_component('Button', '3P', (width * 6 / 12, height * 1 / 2), self.start_game, 3, color=pygame.Color('white'), background_color=pygame.Color('black'))
         # self.children.create_component('Button', '4P', (width * 8 / 12, height * 1 / 2), self.start_game, 4, color=pygame.Color('white'), background_color=pygame.Color('black'))
-        self.children.create_component('ImageButton', 'assets/go.png', (width * 4 / 12, height * 1 / 2), self.start_game, 2, resize=(96, 96), onclick_src='assets/go_pressed.png')
-        self.children.create_component('ImageButton', 'assets/go.png', (width * 6 / 12, height * 1 / 2), self.start_game, 3, resize=(96, 96), onclick_src='assets/go_pressed.png')
-        self.children.create_component('ImageButton', 'assets/go.png', (width * 8 / 12, height * 1 / 2), self.start_game, 4, resize=(96, 96), onclick_src='assets/go_pressed.png')
+        self.children.create_component('ImageButton', 'assets/2P.png', (width * 3 / 12, height * 1 / 2), self.start_game, 2, resize=(128, 128), onclick_src='assets/2P_pressed.png')
+        self.children.create_component('ImageButton', 'assets/3P.png', (width * 6 / 12, height * 1 / 2), self.start_game, 3, resize=(128, 128), onclick_src='assets/3P_pressed.png')
+        self.children.create_component('ImageButton', 'assets/4P.png', (width * 9 / 12, height * 1 / 2), self.start_game, 4, resize=(128, 128), onclick_src='assets/4P_pressed.png')
 
     def start_game(self, player_amount):
         self.manager.to_scene('game', player_amount)
