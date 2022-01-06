@@ -5,4 +5,4 @@ DefaultTextColor = pygame.Color('black')
 BoxSize = 80
 PlayerTokenRadius = 15
 PlayerBorderPadding = 20
-ImageFolder='assets/standImages32'
+ImageFolder='assets/standImages512'

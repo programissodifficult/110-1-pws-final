@@ -66,6 +66,18 @@ class FoodStand(Grid):
             # 無人攤位，觸發購買事件
             self.game.ask_for_buy_stand(triggerer.id, self.id)
 
+    def show_info(self):
+        owner_name = self.owner.name if self.owner_id else '無'
+
+        s = f"""攤位：{self.name}
+
+擁有者：{owner_name}
+桌子數量：{self.level}
+購買價格：{self.prices.buy}
+升級價格：{self.prices.build}
+        """
+        confirm('攤位資訊', s)
+
 
 class EventGrid(Grid):
     def __init__(self, id):

@@ -4,6 +4,7 @@ from game.game import game
 from game.CONST import *
 from game.lib.Character import characters
 
+from ...util.cursor import use_default_cursor, use_hand_cursor
 from ...CONST import *
 from ...componentLib.ComponentBase import ComponentBase
 
@@ -30,13 +31,27 @@ class FoodStandGrid(Grid):
         (x, y) = self.grid_padding
         self.background = self.children.create_component('Rectangle', BoxSize, BoxSize, x, y, pygame.Color('white'), border_width=0, first=True)
         self.name_label = self.children.create_component('Text', self.grid.name, 'Small', center=(x + BoxSize / 2, y + 15))
-        self.children.create_component('Text', str(self.grid.prices.buy), 'Small', center=(x + BoxSize / 2, y + BoxSize - 15))
-        self.children.create_component('Image', path.join(ImageFolder, f'{grid.name}.png'), center=(x + BoxSize / 2, y + BoxSize / 2))
+        # self.children.create_component('Text', str(self.grid.prices.buy), 'Small', center=(x + BoxSize / 2, y + BoxSize - 15))
+        self.children.create_component('Image', path.join(ImageFolder, f'{grid.name}.png'), center=(x + BoxSize / 2, y + BoxSize * 2 / 3), resize=(50, 50))
+        self.rect = self.background.get_rect()
 
     def update(self):
         self.name_label.content = self.grid.name + (f'({self.grid.level})' if self.grid.level else '')
         if self.grid.owner != None:
             self.background.color = self.grid.owner.color_light
+
+    def handle_events(self, events):
+        x, y = pygame.mouse.get_pos()
+
+        for evt in events:
+            if evt.type == pygame.MOUSEMOTION:
+                if self.rect.collidepoint(*pygame.mouse.get_pos()):
+                    use_hand_cursor()
+
+            if evt.type == pygame.MOUSEBUTTONDOWN:
+                if self.rect.collidepoint(x, y):
+                    use_default_cursor()
+                    self.grid.show_info()
 
 
 class EffectGrid(Grid):
