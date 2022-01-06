@@ -2,7 +2,7 @@ import pygame
 
 from .util.cursor import use_default_cursor
 
-from .CONST import ScreenSize
+from .CONST import DefaultScreenSize
 
 
 class ViewManager():
@@ -11,9 +11,9 @@ class ViewManager():
         self.scenes = {}
         self.scene = None
 
-        flags = pygame.SHOWN
-        pygame.display.set_caption('美食大主廚')
-        self.screen = pygame.display.set_mode(ScreenSize, flags)
+        self.flags = pygame.SHOWN
+        pygame.display.set_caption('美食大富翁')
+        self.screen = pygame.display.set_mode(DefaultScreenSize, self.flags)
 
     def add_scene(self, scene):
         self.scenes[scene.name] = scene
@@ -21,6 +21,7 @@ class ViewManager():
 
     def to_scene(self, scene_name, *args, **kwargs):
         scene = self.scenes[scene_name]
+        pygame.display.set_mode(scene.screen_size)
         scene.init(*args, **kwargs)
         self.scene = scene
 

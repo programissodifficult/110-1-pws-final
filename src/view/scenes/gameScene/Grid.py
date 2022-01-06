@@ -58,8 +58,8 @@ class MainKitchenGrid(Grid):
     def init(self, grid):
         super().init(grid)
         (x, y) = self.grid_padding
-        self.children.create_component('Text', '中央廚房', 'Small', center=(x + BoxSize / 2, y + BoxSize * 1 / 2))
-        self.children.create_component('Text', characters[self.grid.character_id].name, 'Small', center=(x + BoxSize / 2, y + BoxSize * 3 / 4))
+        self.children.create_component('Text', '中央廚房', 'Small', center=(x + BoxSize / 2, y + BoxSize / 3))
+        self.children.create_component('Text', characters[self.grid.character_id].name, 'Small', center=(x + BoxSize / 2, y + BoxSize * 2 / 3))
 
     @property
     def player(self):

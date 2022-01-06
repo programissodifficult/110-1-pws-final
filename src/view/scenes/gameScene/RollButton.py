@@ -20,9 +20,12 @@ def get_roll_number():
 
 class RollButton(ComponentBase):
     def init(self):
-        (width, height) = ScreenSize
+        (width, height) = DefaultScreenSize
         score_board_width = BoxSize * BoardGridWidth
-        self.button = self.children.create_component('Button', 'Go', (score_board_width / 2, height / 2), self.roll)
+        # self.button = self.children.create_component(
+        #     'Button', 'Go', (score_board_width / 2, height / 2), self.roll)
+        self.button = self.children.create_component('ImageButton', 'assets/go.png', (score_board_width / 2, height / 2), self.roll, resize=(128, 128), onclick_src='assets/go_pressed.png')
+        self.text = self.children.create_component('Text', '', 'Title', center=(score_board_width / 2, height / 2 - 80), color=pygame.Color('white'))
 
     def roll(self):
         player = game.current_player
@@ -30,13 +33,13 @@ class RollButton(ComponentBase):
         # roll dice animation
         timer = pygame.time.Clock()
         for i in range(40):
-            self.button.content = str(random.randint(2, 12))
+            self.text.set_content(random.randint(2, 12))
             self.manager.rerender()
             timer.tick(40)
 
         # step animation
         step = get_roll_number()
-        self.button.content = str(step)
+        self.text.set_content(step)
         self.manager.rerender()
         self.manager.scene.players[game.turn].step(step)
 
@@ -60,7 +63,7 @@ class RollButton(ComponentBase):
         self.next_turn()
 
     def next_turn(self):
-        self.button.content = "Go"
+        self.text.set_content('')
         game.next_turn()
         if game.current_player.idle_action > 0:
             game.current_player.idle_action -= 1

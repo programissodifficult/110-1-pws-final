@@ -1,6 +1,6 @@
 import pygame
 
-ScreenSize = (1100, 800)
+DefaultScreenSize = (1100, 800)
 DefaultTextColor = pygame.Color('black')
 BoxSize = 80
 PlayerTokenRadius = 15

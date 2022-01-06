@@ -11,7 +11,7 @@ from .gridHelper import grid_coord
 class Player(ComponentBase):
     def init(self, id):
         self.player_id = id
-        self.token = self.children.create_component('Circle', PlayerTokenRadius, self.get_center(), self.player.color)
+        self.token = self.children.create_component('Circle', PlayerTokenRadius, self.get_center(), self.player.color, border=2)
 
     @property
     def player(self):

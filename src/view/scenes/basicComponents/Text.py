@@ -25,6 +25,9 @@ class Text(ComponentBase):
         self.color = color
         self.background_color = background_color
 
+    def set_content(self, content):
+        self.content = str(content)
+
     def make_surface(self):
         return fonts[self.font_type].render(self.content, True, self.color, self.background_color)
 

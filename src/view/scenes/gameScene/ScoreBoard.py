@@ -2,21 +2,21 @@ from os import path
 
 from game.game import game
 from game.CONST import BoardGridWidth
-from ...CONST import BoxSize, ScreenSize
+from ...CONST import BoxSize, DefaultScreenSize
 from ...componentLib.ComponentBase import ComponentBase
 
 
 class ScoreBoard(ComponentBase):
     def init(self, player_id):
         self.id = player_id
-        score_board_height = ScreenSize[1] / 4
+        score_board_height = DefaultScreenSize[1] / 4
         left_padding = BoxSize * BoardGridWidth
         top_padding = score_board_height * self.id
 
         # border
         border_left = left_padding
         border_top = top_padding
-        border_width = ScreenSize[0] - left_padding
+        border_width = DefaultScreenSize[0] - left_padding
         self.children.create_component('Rectangle', border_width, score_board_height, border_left, border_top)
 
         # player name
@@ -47,7 +47,7 @@ class ScoreBoard(ComponentBase):
         self.children.create_component('Image', path.join('assets/icons24/lamp.png'), center=(img_center_x, img_center_y))
 
         # player show info button
-        btn_center_x = ScreenSize[0] - 30
+        btn_center_x = DefaultScreenSize[0] - 30
         btn_center_y = top_padding + 30
         self.children.create_component('Button', ' i ', (btn_center_x, btn_center_y), self.show_info, font='Small', inflate=True)
 

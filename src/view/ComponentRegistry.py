@@ -3,6 +3,7 @@ from .scenes.basicComponents.Button import Button
 from .scenes.basicComponents.Circle import Circle
 from .scenes.basicComponents.Rectangle import Rectangle
 from .scenes.basicComponents.Image import Image
+from .scenes.basicComponents.ImageButton import ImageButton
 
 from .scenes.gameScene.RollButton import RollButton
 from .scenes.gameScene.ScoreBoard import ScoreBoard
@@ -19,6 +20,7 @@ ComponentRegistry = {
     "Circle": Circle,
     "Rectangle": Rectangle,
     "Image": Image,
+    "ImageButton": ImageButton,
 
     # game scene
     "RollButton": RollButton,

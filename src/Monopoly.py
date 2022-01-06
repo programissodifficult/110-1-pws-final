@@ -1,6 +1,5 @@
 import pygame
 from view.ViewManager import ViewManager
-from view.CONST import ScreenSize
 from view.scenes.LandingScene import LandingScene
 from view.scenes.gameScene import GameScene
 from view.scenes.scoreScene.ScoreScene import ScoreScene
@@ -11,7 +10,7 @@ class Monopoly:
     def __init__(self):
         pygame.init()
         self.timer = pygame.time.Clock()
-        self.running = True
+        self.running = True 
         self.view_manager = ViewManager(ComponentRegistry)
         self.init_scenes()
 

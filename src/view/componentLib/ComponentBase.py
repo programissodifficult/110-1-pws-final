@@ -6,6 +6,8 @@ Verbose = False
 
 
 class ComponentBase:
+    disabled = False
+
     def __init__(self):
         self.children = ComponentList(self)
 
@@ -23,7 +25,8 @@ class ComponentBase:
 
     def render(self):
         for child in self.children:
-            child.render()
+            if not child.disabled:
+                child.render()
         self.debug(type(self).__name__, 'rendered')
 
     def handle_events(self, events):

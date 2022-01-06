@@ -22,6 +22,10 @@ class GameScene(Scene):
     def init(self, player_amount):
         game.init(player_amount)
 
+        img_size = (BoxSize * 8, BoxSize * 8)
+        img_center = (BoxSize * 5, BoxSize * 5)
+        self.children.create_component('Image', 'assets/background.png', resize=img_size, center=img_center)
+
         for grid in game.grids:
             grid_comp = self.children.create_component(GridClassByType[grid.type], grid)
             self.grids.append(grid_comp)
