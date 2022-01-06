@@ -46,6 +46,7 @@ class Grid(ComponentBase):
 
         super().handle_events(events)
 
+deco = ['', '+', '++', '*']
 
 class FoodStandGrid(Grid):
     def init(self, grid):
@@ -55,16 +56,18 @@ class FoodStandGrid(Grid):
         self.inner_border.disabled = True
         self.background = self.children.create_component('Rectangle', GridSize, GridSize, x, y, BackgroundColor, border_width=0, first=True)
         self.name_label = self.children.create_component('Text', self.grid.name, 'Small', center=(x + GridSize / 2, y + 15))
-        # self.children.create_component('Text', str(self.grid.prices.buy), 'Small', center=(x + BoxSize / 2, y + BoxSize - 15))
+        self.text_level = self.children.create_component('Text', '', 'Small', bottomright=(x + GridSize - 5, y + GridSize - 5))
         self.children.create_component('Image', path.join(ImageFolder, f'{grid.name}.png'), center=(
             x + GridSize / 2, y + GridSize * 2 / 3), resize=(50, 50))
 
     def update(self):
-        self.name_label.content = self.grid.name + (f'({self.grid.level})' if self.grid.level else '')
         if self.grid.owner != None:
             self.name_label.color = self.grid.owner.color_secondary
             self.inner_border.color = self.grid.owner.color_secondary
             self.inner_border.disabled = False
+            self.text_level.color = self.grid.owner.color_secondary
+            # self.text_level.set_content(deco[self.grid.level])
+            self.text_level.set_content(f'+{self.grid.level}' if self.grid.level else '')
 
     def show_info(self):
         self.grid.show_info()

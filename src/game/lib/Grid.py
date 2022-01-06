@@ -100,12 +100,14 @@ class EventGrid(Grid):
             confirm('主廚能力', f'[主廚能力] 每次抽經營卡時可以獲得 {triggerer.event_bonus} 元')
             triggerer.alter_money(triggerer.event_bonus)
 
+
 descriptions = {
     "fee": '向所有玩家收取 200 元',
     "switch": '隨機和一位玩家交換位置',
     "rest": '隨機一位玩家休息一回合',
     "buy": '可以隨機購買一個攤位',
 }
+
 
 class EffectGrid(Grid):
     def __init__(self, id, effect_type, name):
