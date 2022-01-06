@@ -14,7 +14,7 @@ class ScoreScene(Scene):
     def init(self):
         (width, height) = self.screen_size
         self.children.create_component('Image', 'assets/score_background.png', resize=self.screen_size, center=(width / 2, height / 2))
-        self.children.create_component('Text', '遊戲結束!', 'Title', center=(width / 2, (height - 80 * len(game.players)) / 2 - 35), color=pygame.Color('white'))
+        self.children.create_component('Text', '遊戲結束!', 'Title', center=(width / 2, (height - 80 * len(game.players)) / 2 - 35), color=pygame.Color('gray90'))
         players = game.players.copy()
         sorted_scores = sorted([p.get_score_total() for p in players], reverse=True)
         ranks = [sorted_scores.index(p.get_score_total()) for p in players]
