@@ -53,7 +53,7 @@ class ScoreBoard(ComponentBase):
         # player show info button
         btn_center_x = DefaultScreenSize[0] - 30
         btn_center_y = top_padding + 30
-        self.children.create_component('Button', ' i ', (btn_center_x, btn_center_y), self.show_info, font='Small', inflate=True)
+        self.children.create_component('ImageButton', 'assets/icons24/info.png', (btn_center_x, btn_center_y), self.show_info)
 
     def show_info(self):
         self.player.show_info()
