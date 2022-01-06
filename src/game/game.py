@@ -149,7 +149,7 @@ class Game:
                 # handle double table tech
                 if player.double_table:
                     if player.money < price:
-                        confirm("建設攤位", f"[技術卡效果] 第二章桌子：\n 你的錢好像不太夠，你得要有 {price} 元才能在{stand.name}建設一張桌子")
+                        confirm("建設攤位", f"[技術卡效果] 第二章桌子：\n 你的錢好像不太夠，你得要有 {price} 元才能在{stand.name}再建設一張桌子")
                     elif stand.level >= StandMaxLevel:
                         confirm("建設攤位", f"[技術卡效果] 第二章桌子：\n {stand.name}的桌子數量已達上限，無法再建造更多桌子了")
                     else:
@@ -238,6 +238,7 @@ class Game:
         random.shuffle(stands)
         for stand in stands:
             if stand.level > 0:
+                confirm("移除桌子", f"{stand.name}的一張桌子被移除了！")
                 stand.level -= 1
                 return stand
         else:
