@@ -1,7 +1,8 @@
 import webbrowser
 
-from .Dialog import confirm
+from .Dialog import confirm, yesno
 
 def help():
-    confirm('遊戲說明', '說明書施工中.....')
-    # webbrowser.open('http://example.com')
+    result = yesno('開啟網頁版說明書', '即將在瀏覽器開啟網頁版說明書，是否繼續?')
+    if result:
+        webbrowser.open('https://miccwan.github.io/110-1-pws-final/')
