@@ -33,32 +33,32 @@ class ScoreBoard(ComponentBase):
 
         # player money
         img_pos = (board_left + left_padding, board_top + top_padding)
-        self.children.create_component('Image', path.join('assets/icons24/dollar.png'), midleft=img_pos)
+        self.children.create_component('Image', path.join('assets/icons24/dollar.png'), midleft=img_pos, resize=(24,24))
         text_pos = (board_left + left_padding + text_padding, board_top + top_padding)
         self.text_money = self.children.create_component('Text', '', 'Normal', midleft=text_pos)
 
         # player own technology
         img_pos = (board_left + left_padding, board_top + top_padding2)
-        self.children.create_component('Image', path.join('assets/icons24/lamp.png'), midleft=img_pos)
+        self.children.create_component('Image', path.join('assets/icons24/lamp.png'), midleft=img_pos, resize=(24,24))
         text_pos = (board_left + left_padding + text_padding, board_top + top_padding2)
         self.text_own_tech = self.children.create_component('Text', '', 'Normal', midleft=text_pos)
 
         # player own stand
         img_pos = (board_left + left_padding2, board_top + top_padding)
-        self.children.create_component('Image', path.join('assets/icons24/stand.png'), midleft=img_pos)
+        self.children.create_component('Image', path.join('assets/icons24/stand.png'), midleft=img_pos, resize=(24,24))
         text_pos = (board_left + left_padding2 + text_padding, board_top + top_padding)
         self.text_own_stand = self.children.create_component('Text', '', 'Normal', midleft=text_pos)
 
         # player own table
         img_pos = (board_left + left_padding2, board_top + top_padding2)
-        self.children.create_component('Image', path.join('assets/icons24/table.png'), midleft=img_pos)
+        self.children.create_component('Image', path.join('assets/icons24/table.png'), midleft=img_pos, resize=(24,24))
         text_pos = (board_left + left_padding2 + text_padding, board_top + top_padding2)
         self.text_own_table = self.children.create_component('Text', '', 'Normal', midleft=text_pos)
 
         # player show info button
         btn_center_x = DefaultScreenSize[0] - 45
         btn_center_y = board_top + 45
-        self.children.create_component('ImageButton', 'assets/icons24/info.png', (btn_center_x, btn_center_y), self.show_info)
+        self.children.create_component('ImageButton', 'assets/icons24/info.png', (btn_center_x, btn_center_y), self.show_info, resize=(24,24))
 
     def show_info(self):
         self.player.show_info()
