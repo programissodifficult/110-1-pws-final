@@ -20,22 +20,28 @@ class GameScene(Scene):
     def init(self, player_amount):
         game.init(player_amount)
 
+        # background
         img_size = (GridSize * 8, GridSize * 8)
         img_center = (GridSize * 5, GridSize * 5)
         self.children.create_component('Image', 'assets/background.png', resize=img_size, center=img_center)
 
+        # help button
         help_button_center = (GridSize + 60, GridSize + 60)
         self.children.create_component('ImageButton', 'assets/question.png', help_button_center, help, resize=(96, 96), onclick_src='assets/question_pressed.png')
 
+        # grids
         for grid in game.grids:
             grid_comp = self.children.create_component(GridClassByType[grid.type], grid)
             self.grids.append(grid_comp)
 
+        # players
         for player in game.players:
             player_comp = self.children.create_component('Player', player.id)
             self.players.append(player_comp)
 
+        # scoreboard
         for player in game.players:
-            self.children.create_component('ScoreBoard', player.id)
+            self.children.create_component('Scoreboard', player.id)
 
+        # roll button
         self.children.create_component('RollButton')

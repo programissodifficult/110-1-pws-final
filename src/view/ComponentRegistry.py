@@ -6,7 +6,7 @@ from .scenes.basicComponents.Image import Image
 from .scenes.basicComponents.ImageButton import ImageButton
 
 from .scenes.gameScene.RollButton import RollButton
-from .scenes.gameScene.ScoreBoard import ScoreBoard
+from .scenes.gameScene.Scoreboard import Scoreboard
 from .scenes.gameScene.Grid import FoodStandGrid, EventGrid, EffectGrid, MainKitchenGrid
 from .scenes.gameScene.Player import Player
 
@@ -24,7 +24,7 @@ ComponentRegistry = {
 
     # game scene
     "RollButton": RollButton,
-    "ScoreBoard": ScoreBoard,
+    "Scoreboard": Scoreboard,
     "FoodStandGrid": FoodStandGrid,
     "EventGrid": EventGrid,
     "EffectGrid": EffectGrid,

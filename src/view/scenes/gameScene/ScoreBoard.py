@@ -6,7 +6,7 @@ from ...CONST import BorderColor, GridSize, DefaultScreenSize
 from ...componentLib.ComponentBase import ComponentBase
 
 
-class ScoreBoard(ComponentBase):
+class Scoreboard(ComponentBase):
     def init(self, player_id):
         self.id = player_id
         board_left = GridSize * BoardGridWidth
