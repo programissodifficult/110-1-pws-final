@@ -25,7 +25,7 @@ class Player(ComponentBase):
         for i in range(step_size):
             self.player.step(1)
             self.manager.rerender()
-            timer.tick(20)
+            timer.tick(3)
             if self.player.position == self.player.home_position:
                 game.pass_kitchen(self.player_id)
 

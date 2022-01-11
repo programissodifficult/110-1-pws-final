@@ -128,7 +128,7 @@ class EffectGrid(Grid):
     def trigger(self, triggerer):
         self.effect_handler[self.effect_type](triggerer)
 
-    def confirm_effect(self, additional_msg):
+    def confirm_effect(self, additional_msg=''):
         s = self.effect_description
         if additional_msg:
             s += f'：\n{additional_msg}'
