@@ -56,11 +56,11 @@ View相當於MVC架構中view，根據遊戲過程進行畫面呈現。由於Pyg
 
 ##### Component-based-system
 將遊戲畫面分成不同小元件各自管理，其中函數包括init, update, render, handle_events
--init:建立每個元件會用到的基本元素
--update:畫面更新前執行，元件是否需根據遊戲資料調整
--render:控制元件如何顯示
--handle_events:控制是否需要根據玩家的動作而觸發特定反應
--舉例:
+- init:建立每個元件會用到的基本元素
+- update:畫面更新前執行，元件是否需根據遊戲資料調整
+- render:控制元件如何顯示
+- handle_events:控制是否需要根據玩家的動作而觸發特定反應
+- 舉例:
 ![image](https://user-images.githubusercontent.com/94923725/178355769-0a684cba-7b16-402f-9614-030838bb2cea.png)
 右圖為一個攤位格子（元件）其中包含原本的框線，被玩家擁有後的框線、圖示、背景顏色、名稱文字等（基本元素）
 
