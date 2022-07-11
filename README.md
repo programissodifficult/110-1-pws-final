@@ -24,7 +24,8 @@ $ python src/main.py
 
 雖然名叫大富翁，但我們的遊戲以**經營**為主，玩家最後比拼的是桌數、攤位數與技能的分值相加。
 
-![image](https://user-images.githubusercontent.com/94923725/178326112-df40e350-5129-4348-8ae7-7dfc0d66c84c.png)
+![image](https://user-images.githubusercontent.com/94923725/178350819-7d051f3c-0a06-4f24-9b4b-58578643ecd0.png)
+
 
 ### 介面視覺
 
