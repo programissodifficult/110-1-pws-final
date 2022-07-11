@@ -32,7 +32,7 @@ $ python src/main.py
 初始介面以玩家人數導向2P、3P、4P的介面，而主介面則有地圖與攤位、玩家欄的資訊
 
 ![image](https://user-images.githubusercontent.com/94923725/178351089-601c643b-7b06-4050-83d3-ea8212365fa1.png)
-![image](https://user-images.githubusercontent.com/94923725/178351299-676680a8-3207-4568-808d-6dc778102e33.png)
+![image](https://user-images.githubusercontent.com/94923725/178351500-a6d3546b-60a4-4120-b8ee-6802dd3bd61a.png)
 
 ### 使用套件
 
